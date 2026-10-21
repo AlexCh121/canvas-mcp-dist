@@ -35,4 +35,4 @@ qorigin-canvas-mcp serve
 
 Bridge 保持运行时，如需重新生成配对码，可在另一个终端执行 `qorigin-canvas-mcp pair`。
 
-本包尚未发布到 npm。默认仅允许 DEV 画布 Origin `https://ica.qianyuan-aitech.cn` 和本地开发 Origin `http://localhost:3000`；连接其他画布地址时需设置 `QORIGIN_CANVAS_ORIGINS` 为准确的 Origin。
+本包尚未发布到 npm。如需指定允许连接的画布站点，请将 `QORIGIN_CANVAS_ORIGINS` 设置为目标站点的准确 Origin（协议、域名和端口）；多个 Origin 用逗号分隔。
