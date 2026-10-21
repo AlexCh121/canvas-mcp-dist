@@ -14,11 +14,11 @@ Requires Node.js 22 or newer, a local Codex CLI, and access to the authorized Ca
 
 Paste this into a **local Codex agent running on the same computer as your Canvas browser**:
 
-> Read https://github.com/AlexCh121/canvas-mcp-dist/blob/main/README.md. Check that Node.js 22+ is available, download `qorigin-canvas-mcp-0.1.3.tgz` and `SHA256SUMS-0.1.3` from the v0.1.3 release, and verify the checksum. Set `QORIGIN_CANVAS_ORIGINS` to the exact Origin of my authorized Canvas, install the tarball, register `qorigin-canvas` with `codex mcp add qorigin-canvas -- qorigin-canvas-mcp mcp`, start and keep `qorigin-canvas-mcp serve` running, then guide me to enter the one-use pairing code in Canvas and explicitly select the browser connection. If you are not running on this computer or cannot keep the Bridge running, explain the limitation instead of claiming it is connected.
+> Read https://github.com/AlexCh121/canvas-mcp-dist/blob/main/README.md. Check that Node.js 22+ is available, download `qorigin-canvas-mcp-0.1.3.tgz` and `SHA256SUMS-0.1.3` from this repository, and verify the checksum. Set `QORIGIN_CANVAS_ORIGINS` to the exact Origin of my authorized Canvas, install the tarball, register `qorigin-canvas` with `codex mcp add qorigin-canvas -- qorigin-canvas-mcp mcp`, start and keep `qorigin-canvas-mcp serve` running, then guide me to enter the one-use pairing code in Canvas and explicitly select the browser connection. If you are not running on this computer or cannot keep the Bridge running, explain the limitation instead of claiming it is connected.
 
 ## Install
 
-Download [qorigin-canvas-mcp-0.1.3.tgz](https://github.com/AlexCh121/canvas-mcp-dist/releases/download/v0.1.3/qorigin-canvas-mcp-0.1.3.tgz) and [SHA256SUMS-0.1.3](https://github.com/AlexCh121/canvas-mcp-dist/releases/download/v0.1.3/SHA256SUMS-0.1.3) from the same release. Replace the example Origin below with your authorized Canvas Origin, then run:
+Download [qorigin-canvas-mcp-0.1.3.tgz](qorigin-canvas-mcp-0.1.3.tgz) and [SHA256SUMS-0.1.3](SHA256SUMS-0.1.3) from this repository. Replace the example Origin below with your authorized Canvas Origin, then run:
 
 ```bash
 shasum -a 256 -c SHA256SUMS-0.1.3

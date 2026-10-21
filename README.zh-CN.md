@@ -18,11 +18,11 @@
 
 把下面这句话发给**与画布浏览器运行在同一台电脑上的本地 Codex**：
 
-> 请阅读 https://github.com/AlexCh121/canvas-mcp-dist/blob/main/README.zh-CN.md，确认本机有 Node.js 22 或更新版本，从 v0.1.3 Release 下载 `qorigin-canvas-mcp-0.1.3.tgz` 和 `SHA256SUMS-0.1.3` 并校验。将 `QORIGIN_CANVAS_ORIGINS` 设置为我获授权画布的准确 Origin，安装压缩包，用 `codex mcp add qorigin-canvas -- qorigin-canvas-mcp mcp` 注册 MCP，启动并保持 `qorigin-canvas-mcp serve` 运行，然后引导我在画布里手动输入一次性配对码并显式选择浏览器连接；如果你不在这台电脑上或无法保持 Bridge 运行，请说明原因，不要声称已经连接成功。
+> 请阅读 https://github.com/AlexCh121/canvas-mcp-dist/blob/main/README.zh-CN.md，确认本机有 Node.js 22 或更新版本，从该仓库下载 `qorigin-canvas-mcp-0.1.3.tgz` 和 `SHA256SUMS-0.1.3` 并校验。将 `QORIGIN_CANVAS_ORIGINS` 设置为我获授权画布的准确 Origin，安装压缩包，用 `codex mcp add qorigin-canvas -- qorigin-canvas-mcp mcp` 注册 MCP，启动并保持 `qorigin-canvas-mcp serve` 运行，然后引导我在画布里手动输入一次性配对码并显式选择浏览器连接；如果你不在这台电脑上或无法保持 Bridge 运行，请说明原因，不要声称已经连接成功。
 
 ## 下载与安装
 
-从同一 Release 下载 [qorigin-canvas-mcp-0.1.3.tgz](https://github.com/AlexCh121/canvas-mcp-dist/releases/download/v0.1.3/qorigin-canvas-mcp-0.1.3.tgz) 和 [SHA256SUMS-0.1.3](https://github.com/AlexCh121/canvas-mcp-dist/releases/download/v0.1.3/SHA256SUMS-0.1.3)，放在同一目录。将下面的示例 Origin 换成获授权画布的准确 Origin，然后执行：
+从本仓库下载 [qorigin-canvas-mcp-0.1.3.tgz](qorigin-canvas-mcp-0.1.3.tgz) 和 [SHA256SUMS-0.1.3](SHA256SUMS-0.1.3)，放在同一目录。将下面的示例 Origin 换成获授权画布的准确 Origin，然后执行：
 
 ```bash
 shasum -a 256 -c SHA256SUMS-0.1.3
