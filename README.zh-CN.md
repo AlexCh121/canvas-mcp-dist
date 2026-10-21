@@ -1,11 +1,12 @@
-# 雷盈画布 MCP 0.1.3（生产候选版）
+# 雷盈画布 MCP 0.1.4（生产候选版）
 
 [English](README.md)
 
 本仓库提供雷盈画布本机 Bridge 与 stdio MCP 的安装包，供获授权的画布用户使用。这里仅发布安装包，不包含画布应用源码。
 
-- 版本：`@qorigin/canvas-mcp@0.1.3`
-- 来源：画布集成分支 `hotfix.20261021.prompt-limits` 提交 `c2b45887`，安装包加固分支 `codex/mcp-0.1.3` 提交 `8e91dc1a`；后端集成分支 `hotfix.20261021.1` 提交 `4e89f8d5`
+- 版本：`@qorigin/canvas-mcp@0.1.4`
+- 生产画布：[https://lc.tatakeji.cn/](https://lc.tatakeji.cn/)
+- 来源：画布集成分支 `hotfix.20261021.prompt-limits` 提交 `c2b45887`，安装包分支 `codex/mcp-0.1.4` 提交 `c2192f36`；后端集成分支 `hotfix.20261021.1` 提交 `4e89f8d5`
 - 状态：生产候选包，供受控验证；客户正式开放仍需对应画布和后端部署及端到端验收
 
 ## 使用条件
@@ -18,17 +19,16 @@
 
 把下面这句话发给**与画布浏览器运行在同一台电脑上的本地 Codex**：
 
-> 请阅读 https://github.com/AlexCh121/canvas-mcp-dist/blob/main/README.zh-CN.md，确认本机有 Node.js 22 或更新版本，从该仓库下载 `qorigin-canvas-mcp-0.1.3.tgz` 和 `SHA256SUMS-0.1.3` 并校验。将 `QORIGIN_CANVAS_ORIGINS` 设置为我获授权画布的准确 Origin，安装压缩包，用 `codex mcp add qorigin-canvas -- qorigin-canvas-mcp mcp` 注册 MCP，启动并保持 `qorigin-canvas-mcp serve` 运行，然后引导我在画布里手动输入一次性配对码并显式选择浏览器连接；如果你不在这台电脑上或无法保持 Bridge 运行，请说明原因，不要声称已经连接成功。
+> 请阅读 https://github.com/AlexCh121/canvas-mcp-dist/blob/main/README.zh-CN.md，在本机打开生产画布 https://lc.tatakeji.cn/ 并登录。确认 Node.js 22 或更新版本，从该仓库下载 `qorigin-canvas-mcp-0.1.4.tgz` 和 `SHA256SUMS-0.1.4` 并校验；安装压缩包，用 `codex mcp add qorigin-canvas -- qorigin-canvas-mcp mcp` 注册 MCP，启动并保持 `qorigin-canvas-mcp serve` 运行，然后引导我在画布里手动输入一次性配对码并显式选择浏览器连接；如果你不在这台电脑上或无法保持 Bridge 运行，请说明原因，不要声称已经连接成功。
 
 ## 下载与安装
 
-从本仓库下载 [qorigin-canvas-mcp-0.1.3.tgz](qorigin-canvas-mcp-0.1.3.tgz) 和 [SHA256SUMS-0.1.3](SHA256SUMS-0.1.3)，放在同一目录。将下面的示例 Origin 换成获授权画布的准确 Origin，然后执行：
+从本仓库下载 [qorigin-canvas-mcp-0.1.4.tgz](qorigin-canvas-mcp-0.1.4.tgz) 和 [SHA256SUMS-0.1.4](SHA256SUMS-0.1.4)，放在同一目录。在已登录的[生产画布](https://lc.tatakeji.cn/)所在电脑上执行：
 
 ```bash
-shasum -a 256 -c SHA256SUMS-0.1.3
-npm install -g ./qorigin-canvas-mcp-0.1.3.tgz
+shasum -a 256 -c SHA256SUMS-0.1.4
+npm install -g ./qorigin-canvas-mcp-0.1.4.tgz
 codex mcp add qorigin-canvas -- qorigin-canvas-mcp mcp
-export QORIGIN_CANVAS_ORIGINS="https://your-canvas.example"
 qorigin-canvas-mcp serve
 ```
 
@@ -42,10 +42,10 @@ qorigin-canvas-mcp serve
 
 Bridge 保持运行时，如需重新生成配对码，可在另一个终端执行 `qorigin-canvas-mcp pair`。
 
-本包尚未发布到 npm。Bridge 未设置 `QORIGIN_CANVAS_ORIGINS` 时会拒绝启动；该变量须填写目标站点的准确 Origin（协议、域名和端口），多个 Origin 用逗号分隔。从 0.1.2 升级时，建议移除旧的 `qorigin-canvas-dev` 注册，避免重复入口。
+本包尚未发布到 npm。Bridge 默认仅允许 `https://lc.tatakeji.cn` 连接；访问其他获授权画布时，可用 `QORIGIN_CANVAS_ORIGINS` 覆盖为其准确 Origin（协议、域名和端口），多个 Origin 用逗号分隔。显式设置为空值会拒绝启动。从 0.1.2 升级时，建议移除旧的 `qorigin-canvas-dev` 注册，避免重复入口。
 
 ## 创作流程与发布状态
 
 分页调用 `canvas_get_state`；修改长文本前用 `canvas_get_node_text` 读到 `nextOffset` 为 `null`。用 `canvas_list_media_versions` 选择准确版本，通过 `canvas_get_image_preview` 或 `canvas_get_media_info` 查看素材；媒体 URL 有效期为 5 分钟。先用 `canvas_get_generation_options` 查询能力并配置图片或视频节点，再用 `canvas_quote_generation` 报价。写入前准备操作 ID，向 `canvas_generate_image` 或 `canvas_generate_video` 原样传递报价指纹、提示词、参考版本和报价金额，并在画布中确认费用。结果不明时查询原操作 ID；素材是否完成还须调用 `canvas_get_generation_status`。旧结果可作为新节点的参考；已完成节点可再次生成并保留旧版，`canvas_select_media_version` 可选回已保存版本。素材审核工具用于供应商合规检查，不评价创作质量。
 
-0.1.3 包基于合并后的画布源码构建，本地类型检查、Bridge 恢复测试和显式 Origin 启动测试通过。此前 DEV 浏览器已验证参考图付费生成、金额不符拒绝、回执丢失后的操作恢复、图片合规审核、同节点重做与旧版切回；合并后的生产构建仍需完成真实改价竞态、参考视频生成、权限撤销、重复操作不重复扣费和云端 Agent 回归。视频关键帧提取及运行时停用/撤销既有配对尚未实现。已签发的媒体 URL 在 5 分钟有效期内无法即时撤销。
+0.1.4 包基于合并后的画布源码构建，本地类型检查、Bridge 恢复测试、生产 Origin 默认值与覆盖测试通过。此前 DEV 浏览器已验证参考图付费生成、金额不符拒绝、回执丢失后的操作恢复、图片合规审核、同节点重做与旧版切回；合并后的生产构建仍需完成真实改价竞态、参考视频生成、权限撤销、重复操作不重复扣费和云端 Agent 回归。视频关键帧提取及运行时停用/撤销既有配对尚未实现。已签发的媒体 URL 在 5 分钟有效期内无法即时撤销。
