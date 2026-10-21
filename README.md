@@ -10,6 +10,12 @@ Status: DEV technical preview. Not a production customer release.
 
 Requires Node.js 22 or newer, a local Codex CLI, and access to the DEV Canvas on the same computer as the Bridge.
 
+## One-sentence quickstart for an agent
+
+Paste this into a **local Codex agent running on the same computer as your DEV Canvas browser**:
+
+> Read https://github.com/AlexCh121/canvas-mcp-dist/blob/main/README.md, check that Node.js 22+ is available, download and verify the `0.1.1` tarball against `SHA256SUMS`, install it, register `qorigin-canvas-dev` with `codex mcp add qorigin-canvas-dev -- qorigin-canvas-mcp mcp`, start and keep `qorigin-canvas-mcp serve` running, then guide me to enter the one-use pairing code in Canvas and explicitly select the browser connection; if you are not running on this computer or cannot keep the Bridge running, stop and tell me instead of claiming it is connected.
+
 ## Install
 
 Download `qorigin-canvas-mcp-0.1.1.tgz` and `SHA256SUMS` from this repository, then run:

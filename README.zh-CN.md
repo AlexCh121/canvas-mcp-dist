@@ -14,6 +14,12 @@
 - 能访问 DEV 画布，并已在浏览器中登录。
 - 浏览器、Bridge 和 Codex 必须运行在**同一台电脑**上。远程执行器、SSH 会话和容器中的 `127.0.0.1` 无法连接到客户电脑上的浏览器。
 
+## 一句话给 Agent（Quickstart）
+
+把下面这句话发给**与 DEV 画布浏览器运行在同一台电脑上的本地 Codex**：
+
+> 请阅读 https://github.com/AlexCh121/canvas-mcp-dist/blob/main/README.zh-CN.md，确认本机有 Node.js 22 或更新版本，下载 `0.1.1` 压缩包和 `SHA256SUMS` 并校验，安装压缩包，用 `codex mcp add qorigin-canvas-dev -- qorigin-canvas-mcp mcp` 注册 MCP，启动并保持 `qorigin-canvas-mcp serve` 运行，然后引导我在画布里手动输入一次性配对码并显式选择浏览器连接；如果你不在这台电脑上或无法保持 Bridge 运行，请停下来说明原因，不要声称已经连接成功。
+
 ## 下载与安装
 
 从本仓库下载 [qorigin-canvas-mcp-0.1.1.tgz](qorigin-canvas-mcp-0.1.1.tgz) 和 [SHA256SUMS](SHA256SUMS)，放在同一目录。在该目录执行：
