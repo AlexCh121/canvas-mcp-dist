@@ -1,12 +1,12 @@
-# QOrigin Canvas MCP（DEV 预览版）
+# 雷盈画布 MCP 0.1.2（内部 DEV 预览版）
 
 [English](README.md)
 
 本仓库提供雷盈画布本机 Bridge 与 stdio MCP 的安装包，供获授权的 DEV 测试使用。这里仅发布安装包，不包含画布应用源码。
 
-- 版本：`@qorigin/canvas-mcp@0.1.1`
-- 来源：`tano-canvas` 的 `codex/customer-mcp` 分支，提交 `763761cf`；打包时将包版本和 MCP 服务版本设为 `0.1.1`
-- 状态：DEV 技术预览，尚非生产客户版本
+- 版本：`@qorigin/canvas-mcp@0.1.2`
+- 来源：`tano-canvas` 的 `codex/customer-mcp` 分支提交 `25ae6242`（安装包源码最近变更于 `0d43eb04`），后端变更为 `5cd48559`
+- 状态：内部 DEV 预览，尚未达到客户发布验收门槛
 
 ## 使用条件
 
@@ -18,15 +18,15 @@
 
 把下面这句话发给**与 DEV 画布浏览器运行在同一台电脑上的本地 Codex**：
 
-> 请阅读 https://github.com/AlexCh121/canvas-mcp-dist/blob/main/README.zh-CN.md，确认本机有 Node.js 22 或更新版本，下载 `0.1.1` 压缩包和 `SHA256SUMS` 并校验，安装压缩包，用 `codex mcp add qorigin-canvas-dev -- qorigin-canvas-mcp mcp` 注册 MCP，启动并保持 `qorigin-canvas-mcp serve` 运行，然后引导我在画布里手动输入一次性配对码并显式选择浏览器连接；如果你不在这台电脑上或无法保持 Bridge 运行，请停下来说明原因，不要声称已经连接成功。
+> 请阅读 https://github.com/AlexCh121/canvas-mcp-dist/blob/main/README.zh-CN.md，确认本机有 Node.js 22 或更新版本，下载 `0.1.2` 压缩包和 `SHA256SUMS` 并校验，安装压缩包，用 `codex mcp add qorigin-canvas-dev -- qorigin-canvas-mcp mcp` 注册 MCP，启动并保持 `qorigin-canvas-mcp serve` 运行，然后引导我在画布里手动输入一次性配对码并显式选择浏览器连接；如果你不在这台电脑上或无法保持 Bridge 运行，请停下来说明原因，不要声称已经连接成功。
 
 ## 下载与安装
 
-从本仓库下载 [qorigin-canvas-mcp-0.1.1.tgz](qorigin-canvas-mcp-0.1.1.tgz) 和 [SHA256SUMS](SHA256SUMS)，放在同一目录。在该目录执行：
+从本仓库下载 [qorigin-canvas-mcp-0.1.2.tgz](qorigin-canvas-mcp-0.1.2.tgz) 和 [SHA256SUMS](SHA256SUMS)，放在同一目录。在该目录执行：
 
 ```bash
 shasum -a 256 -c SHA256SUMS
-npm install -g ./qorigin-canvas-mcp-0.1.1.tgz
+npm install -g ./qorigin-canvas-mcp-0.1.2.tgz
 codex mcp add qorigin-canvas-dev -- qorigin-canvas-mcp mcp
 qorigin-canvas-mcp serve
 ```
@@ -42,3 +42,9 @@ qorigin-canvas-mcp serve
 Bridge 保持运行时，如需重新生成配对码，可在另一个终端执行 `qorigin-canvas-mcp pair`。
 
 本包尚未发布到 npm。如需指定允许连接的画布站点，请将 `QORIGIN_CANVAS_ORIGINS` 设置为目标站点的准确 Origin（协议、域名和端口）；多个 Origin 用逗号分隔。
+
+## 创作流程与发布状态
+
+分页调用 `canvas_get_state`；修改长文本前用 `canvas_get_node_text` 读到 `nextOffset` 为 `null`。用 `canvas_list_media_versions` 选择准确版本，通过 `canvas_get_image_preview` 或 `canvas_get_media_info` 查看素材；媒体 URL 有效期为 5 分钟。先用 `canvas_get_generation_options` 查询能力并配置图片或视频节点，再用 `canvas_quote_generation` 报价。写入前准备操作 ID，向 `canvas_generate_image` 或 `canvas_generate_video` 原样传递报价指纹、提示词、参考版本和报价金额，并在画布中确认费用。结果不明时查询原操作 ID；素材是否完成还须调用 `canvas_get_generation_status`。旧结果可作为新节点的参考；已完成节点可再次生成并保留旧版，`canvas_select_media_version` 可选回已保存版本。素材审核工具用于供应商合规检查，不评价创作质量。
+
+本地类型检查、聚焦测试和 Bridge 回执丢失/重启测试通过。DEV 浏览器已验证参考图付费生成、金额不符拒绝、回执丢失后的操作恢复、图片合规审核、同节点重做与旧版切回；真实改价竞态、参考视频生成、权限撤销和云端 Agent 回归仍待测试。视频关键帧提取及运行时停用/撤销既有配对尚未实现。已签发的媒体 URL 在 5 分钟有效期内无法即时撤销。本包仅供内部验证。
