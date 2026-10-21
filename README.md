@@ -1,5 +1,7 @@
 # QOrigin Canvas MCP DEV preview
 
+[简体中文](README.zh-CN.md)
+
 This repository distributes the local Canvas Bridge and stdio MCP package for authorized DEV testing. It does not contain the Canvas application source code.
 
 Version: `@qorigin/canvas-mcp@0.1.1`  
