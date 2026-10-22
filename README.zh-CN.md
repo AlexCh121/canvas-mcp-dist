@@ -2,7 +2,7 @@
 
 [English](README.md)
 
-本仓库提供无限画布本机 Bridge 与 stdio MCP 的安装包，供获授权的画布用户使用。当前版本为 `@qorigin/canvas-mcp@0.1.4`；技术包名和命令保持不变。
+本仓库提供无限画布本机 Bridge 与 stdio MCP 的安装包，供获授权的画布用户使用。当前安装包版本为 0.1.4。
 
 ## 使用条件
 
