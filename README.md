@@ -2,7 +2,7 @@
 
 [简体中文](README.zh-CN.md)
 
-This repository distributes the local Bridge and stdio MCP package for authorized Infinite Canvas users. The current version is `@qorigin/canvas-mcp@0.1.4`; its technical package name and commands remain unchanged.
+This repository distributes the local Bridge and stdio MCP package for authorized Infinite Canvas users. The current package version is 0.1.4.
 
 Requires Node.js 22 or newer, a local Codex CLI, and access to the authorized Canvas on the same computer as the Bridge.
 
