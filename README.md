@@ -1,4 +1,4 @@
-# huihui Infinite Canvas MCP
+# Infinite Canvas MCP
 
 [简体中文](README.zh-CN.md)
 
@@ -6,11 +6,11 @@ This repository distributes the local Bridge and stdio MCP package for authorize
 
 Requires Node.js 22 or newer, a local Codex CLI, and access to the authorized Canvas on the same computer as the Bridge.
 
-Current release: [v0.1.5 downloads and installation guides](https://github.com/AlexCh121/canvas-mcp-dist/releases/tag/v0.1.5). Canvas: [https://lc.tatakeji.cn/](https://lc.tatakeji.cn/). The matching Canvas Web and Service must be deployed to use the new tools.
+Current release: [v0.1.5 downloads and installation guides](https://github.com/AlexCh121/canvas-mcp-dist/releases/tag/v0.1.5). The matching Canvas Web and Service must be deployed to use the new tools.
 
 ## One-sentence quickstart for an agent
 
-First sign in at [https://lc.tatakeji.cn/](https://lc.tatakeji.cn/) and copy the URL of the canvas you opened. Replace `PASTE_YOUR_CANVAS_URL_HERE` below with that URL, then send the entire message to a **local Codex or other agent running on the same computer as your browser**:
+First sign in to Canvas and copy the URL of the canvas you opened. Replace `PASTE_YOUR_CANVAS_URL_HERE` below with that URL, then send the entire message to a **local Codex or other agent running on the same computer as your browser**:
 
 > Read https://github.com/AlexCh121/canvas-mcp-dist/blob/main/README.md and https://github.com/AlexCh121/canvas-mcp-dist/blob/main/latest.json. I have opened Infinite Canvas and signed in on this computer. My canvas URL is: `PASTE_YOUR_CANVAS_URL_HERE`. Read `latest.json` from the repository's `main` branch for the current version, `archive`, `checksumFile`, `sha256`, `cli`, and `codexRegistration`; check that Node.js meets `nodeMajorMinimum`. Download the named archive and checksum file from the same repository, verify both SHA256 values, and install the archive. Stop if the manifest or files disagree. Register the MCP with Codex using the manifest's registration name and CLI, keep that CLI's `serve` mode running, then guide me to enter the one-use pairing code in Canvas Assistant → Codex and explicitly select the browser connection. If you are not running on this computer or cannot keep the Bridge running, explain the limitation instead of claiming it is connected.
 
