@@ -1,0 +1,50 @@
+name: Publish MCP prerelease
+
+on:
+  push:
+    branches: [main]
+    paths: [release.json]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: publish-mcp-prerelease
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - name: Verify package and installation pointer
+        id: assets
+        run: |
+          python3 scripts/update-latest.py --check
+          python3 scripts/verify-release.py
+      - name: Publish versioned assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE_VERSION: ${{ steps.assets.outputs.version }}
+          RELEASE_ARCHIVE: ${{ steps.assets.outputs.archive }}
+          RELEASE_CHECKSUM: ${{ steps.assets.outputs.checksumFile }}
+          RELEASE_NOTES: ${{ steps.assets.outputs.notesFile }}
+        run: |
+          set -euo pipefail
+          tag="v${RELEASE_VERSION}"
+          if gh release view "$tag" >/dev/null 2>&1; then
+            echo "Release already exists; refusing to replace versioned assets."
+            exit 1
+          fi
+          gh release create "$tag" --draft --prerelease --target "$GITHUB_SHA" \
+            --title "huihui Infinite Canvas MCP ${tag} (prerelease)" \
+            --notes-file "$RELEASE_NOTES"
+          gh release upload "$tag" "$RELEASE_ARCHIVE" "$RELEASE_CHECKSUM" \
+            "releases/${RELEASE_VERSION}/SHA256SUMS" \
+            "releases/${RELEASE_VERSION}/README.en.md" \
+            "releases/${RELEASE_VERSION}/INSTALL.zh-CN.md" \
+            "$RELEASE_NOTES"
+          gh release edit "$tag" --draft=false --prerelease --latest=false

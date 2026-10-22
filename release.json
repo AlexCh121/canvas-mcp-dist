@@ -1,0 +1,8 @@
+{
+  "version": "0.1.5",
+  "archive": "qorigin-canvas-mcp-0.1.5.tgz",
+  "checksumFile": "SHA256SUMS-0.1.5",
+  "notesFile": "releases/0.1.5/RELEASE-NOTES.md",
+  "title": "huihui Infinite Canvas MCP v0.1.5 (prerelease)",
+  "prerelease": true
+}

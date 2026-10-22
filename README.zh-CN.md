@@ -4,6 +4,8 @@
 
 本仓库提供无限画布本机 Bridge 与 stdio MCP 的安装包，供获授权的画布用户使用。当前可安装版本、压缩包和校验文件以 [latest.json](latest.json) 为准。
 
+0.1.5 预发布：[下载与安装说明](https://github.com/AlexCh121/canvas-mcp-dist/releases/tag/v0.1.5)。需配套画布部署后使用；生产验收完成前，`latest.json` 保留原安装版本。
+
 ## 使用条件
 
 - Node.js 22 或更新版本，以及已安装的 Codex CLI。

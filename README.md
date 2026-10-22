@@ -6,6 +6,8 @@ This repository distributes the local Bridge and stdio MCP package for authorize
 
 Requires Node.js 22 or newer, a local Codex CLI, and access to the authorized Canvas on the same computer as the Bridge.
 
+0.1.5 prerelease: [downloads and installation guides](https://github.com/AlexCh121/canvas-mcp-dist/releases/tag/v0.1.5). It requires the matching Canvas deployment. The current installation pointer in `latest.json` is retained until production acceptance.
+
 ## One-sentence quickstart for an agent
 
 First sign in to Infinite Canvas and copy the URL of the canvas you opened. Replace `PASTE_YOUR_CANVAS_URL_HERE` below with that URL, then send the entire message to a **local Codex or other agent running on the same computer as your browser**:
