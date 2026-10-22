@@ -2,6 +2,12 @@
 
 仅供已获授权的 DEV 画布测试。本包来自画布源码分支 `codex/mcp-015-dev-package` 提交 `cb4de1c8`；需要配套的 DEV Canvas Web 和 Canvas Service。它不在稳定版 `latest.json` 中，GitHub `main` 的安装说明仍指向 0.1.4。包内 README 保留原文，测试时以本说明的版本、端口和安装路径为准。
 
+## 一句话给本机 Agent
+
+先登录 DEV 画布并复制当前画布 URL，将下面的占位符替换为该 URL，再把整句话发给与画布浏览器在同一台电脑上的本机 Agent：
+
+> 请阅读 https://github.com/AlexCh121/canvas-mcp-dist/blob/dev-mcp-0.1.5-dev.1/dev/0.1.5-dev.1/INSTALL-DEV.zh-CN.md；我已登录的 DEV 画布 URL 是「请在此处替换为实际 DEV 画布 URL」；请只从该 DEV 测试分支下载并校验 `0.1.5-dev.1` 包，按文档隔离安装并注册 `huihui-canvas-dev`，从画布 URL 提取 Origin，以独立端口 `38622` 启动并保持本机 Bridge 运行，然后引导我在画布里输入一次性配对码、设置同一端口并显式选择浏览器连接；上传素材前先询问我授权的本机目录，若你不在这台电脑上或无法保持 Bridge 运行，请说明原因，不要声称连接成功。
+
 ## 本机安装
 
 需 Node.js 22+、Codex CLI，以及与画布浏览器同一台电脑的终端。在一个空目录执行：
