@@ -4,7 +4,7 @@
 
 本仓库提供无限画布本机 Bridge 与 stdio MCP 的安装包，供获授权的画布用户使用。当前可安装版本、压缩包和校验文件以 [latest.json](latest.json) 为准。
 
-0.1.5 预发布：[下载与安装说明](https://github.com/AlexCh121/canvas-mcp-dist/releases/tag/v0.1.5)。需配套画布部署后使用；生产验收完成前，`latest.json` 保留原安装版本。
+当前正式版本：[v0.1.5 下载与安装说明](https://github.com/AlexCh121/canvas-mcp-dist/releases/tag/v0.1.5)。画布入口：[https://lc.tatakeji.cn/](https://lc.tatakeji.cn/)。新工具需配套网页与 Canvas Service 部署后使用。
 
 ## 使用条件
 
@@ -14,7 +14,7 @@
 
 ## 一句话给 Agent（Quickstart）
 
-请先登录无限画布，复制登录后当前画布的 URL，把下方「请在此处替换画布工作区URL」替换为该 URL，再将整段发给**与画布浏览器运行在同一台电脑上的本地 Codex 或其他 Agent**：
+请先登录 [https://lc.tatakeji.cn/](https://lc.tatakeji.cn/)，复制登录后当前画布的 URL，把下方「请在此处替换画布工作区URL」替换为该 URL，再将整段发给**与画布浏览器运行在同一台电脑上的本地 Codex 或其他 Agent**：
 
 > 请阅读 https://github.com/AlexCh121/canvas-mcp-dist/blob/main/README.zh-CN.md 和 https://github.com/AlexCh121/canvas-mcp-dist/blob/main/latest.json。我已在本机打开无限画布并登录；画布 URL 为：「请在此处替换画布工作区URL」。从仓库 `main` 的 `latest.json` 获取当前版本、`archive`、`checksumFile`、`sha256`、`cli` 和 `codexRegistration`，确认 Node.js 达到 `nodeMajorMinimum`。下载清单指定的压缩包与校验文件，核对两处 SHA256 一致后安装；若清单或文件不一致，请停止。用清单中的注册名及 CLI 注册 Codex MCP，启动并保持该 CLI 的 `serve` 模式运行，然后引导我在画布的「画布助手 → Codex」输入一次性配对码，并显式选择浏览器连接；如果你不在这台电脑上或无法保持 Bridge 运行，请说明原因，不要声称已经连接成功。
 
@@ -51,4 +51,4 @@ Bridge 保持运行时，如需重新生成配对码，可在另一个终端使�
 
 分页调用 `canvas_get_state`；修改长文本前用 `canvas_get_node_text` 读到 `nextOffset` 为 `null`。用 `canvas_list_media_versions` 选择准确版本，通过 `canvas_get_image_preview` 或 `canvas_get_media_info` 查看素材；媒体 URL 有效期为 5 分钟。先用 `canvas_get_generation_options` 查询能力并配置图片或视频节点，再用 `canvas_quote_generation` 报价。写入前准备操作 ID，向 `canvas_generate_image` 或 `canvas_generate_video` 原样传递报价指纹、提示词、参考版本和报价金额，并在画布中确认费用。结果不明时查询原操作 ID；素材是否完成还须调用 `canvas_get_generation_status`。旧结果可作为新节点的参考；已完成节点可再次生成并保留旧版，`canvas_select_media_version` 可选回已保存版本。素材审核工具用于供应商合规检查，不评价创作质量。
 
-本版尚不支持视频关键帧提取及运行时停用或撤销既有配对。已签发的媒体 URL 在 5 分钟有效期内无法即时撤销。完整创作流程仍需在对应画布部署中验证。
+独立节点可并行生成；本机批量上传最多 20 项，须先授权素材目录。免费业务动作在画布自动执行，收费仍逐项确认，客户端工具审批由客户端控制。刷新后重新打开「画布助手 → Codex」恢复连接，主动断开会撤销配对。HEIC 可保存但目前无法预览和读取宽高，视觉读取优先用 PNG/JPEG。视频截帧和无人值守不在本版范围；签名媒体 URL 到期前仍可用。具体验收范围与限制见版本发布说明。

@@ -19,8 +19,12 @@ if expected["version"] != version or expected["checksumFile"] != release["checks
     raise ValueError("release metadata does not match package")
 if release["notesFile"] != f"releases/{version}/RELEASE-NOTES.md":
     raise ValueError("invalid release notes path")
-if release["prerelease"] is not True:
-    raise ValueError("this publication workflow requires a prerelease")
+if not isinstance(release["prerelease"], bool):
+    raise ValueError("prerelease must be a boolean")
+if not release["prerelease"]:
+    latest = json.loads((ROOT / "latest.json").read_text())
+    if latest != expected:
+        raise ValueError("regular release must match latest.json")
 for name in ["README.en.md", "INSTALL.zh-CN.md", "RELEASE-NOTES.md", "SHA256SUMS"]:
     if not (ROOT / "releases" / version / name).is_file():
         raise ValueError(f"missing versioned asset: {name}")
@@ -32,4 +36,5 @@ if os.environ.get("GITHUB_OUTPUT"):
     with open(os.environ["GITHUB_OUTPUT"], "a") as output:
         for key in ["version", "archive", "checksumFile", "notesFile"]:
             output.write(f"{key}={release[key]}\n")
-print(f"Release assets verified: {version}; current latest.json unchanged")
+        output.write(f"prerelease={json.dumps(release['prerelease'])}\n")
+print(f"Release assets verified: {version}; prerelease={release['prerelease']}")

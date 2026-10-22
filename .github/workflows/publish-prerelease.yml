@@ -1,4 +1,4 @@
-name: Publish MCP prerelease
+name: Publish MCP release
 
 on:
   push:
@@ -32,19 +32,36 @@ jobs:
           RELEASE_ARCHIVE: ${{ steps.assets.outputs.archive }}
           RELEASE_CHECKSUM: ${{ steps.assets.outputs.checksumFile }}
           RELEASE_NOTES: ${{ steps.assets.outputs.notesFile }}
+          RELEASE_PRERELEASE: ${{ steps.assets.outputs.prerelease }}
         run: |
           set -euo pipefail
           tag="v${RELEASE_VERSION}"
           if gh release view "$tag" >/dev/null 2>&1; then
-            echo "Release already exists; refusing to replace versioned assets."
-            exit 1
+            if [ "$RELEASE_PRERELEASE" != false ]; then
+              echo "Release already exists; refusing to replace versioned assets."
+              exit 1
+            fi
+            verify_dir="$(mktemp -d)"
+            trap 'rm -rf "$verify_dir"' EXIT
+            gh release download "$tag" --pattern "$RELEASE_ARCHIVE" \
+              --pattern "$RELEASE_CHECKSUM" --dir "$verify_dir"
+            cmp "$verify_dir/$RELEASE_ARCHIVE" "$RELEASE_ARCHIVE"
+            cmp "$verify_dir/$RELEASE_CHECKSUM" "$RELEASE_CHECKSUM"
+            gh release edit "$tag" --draft=false --prerelease=false --latest \
+              --title "huihui Infinite Canvas MCP ${tag}" --notes-file "$RELEASE_NOTES"
+          else
+            title="huihui Infinite Canvas MCP ${tag}"
+            if [ "$RELEASE_PRERELEASE" = true ]; then title="$title (prerelease)"; fi
+            gh release create "$tag" --draft --prerelease="$RELEASE_PRERELEASE" \
+              --target "$GITHUB_SHA" --title "$title" --notes-file "$RELEASE_NOTES"
+            gh release upload "$tag" "$RELEASE_ARCHIVE" "$RELEASE_CHECKSUM" \
+              "releases/${RELEASE_VERSION}/SHA256SUMS" \
+              "releases/${RELEASE_VERSION}/README.en.md" \
+              "releases/${RELEASE_VERSION}/INSTALL.zh-CN.md" \
+              "$RELEASE_NOTES"
+            if [ "$RELEASE_PRERELEASE" = true ]; then
+              gh release edit "$tag" --draft=false --prerelease --latest=false
+            else
+              gh release edit "$tag" --draft=false --prerelease=false --latest
+            fi
           fi
-          gh release create "$tag" --draft --prerelease --target "$GITHUB_SHA" \
-            --title "huihui Infinite Canvas MCP ${tag} (prerelease)" \
-            --notes-file "$RELEASE_NOTES"
-          gh release upload "$tag" "$RELEASE_ARCHIVE" "$RELEASE_CHECKSUM" \
-            "releases/${RELEASE_VERSION}/SHA256SUMS" \
-            "releases/${RELEASE_VERSION}/README.en.md" \
-            "releases/${RELEASE_VERSION}/INSTALL.zh-CN.md" \
-            "$RELEASE_NOTES"
-          gh release edit "$tag" --draft=false --prerelease --latest=false
