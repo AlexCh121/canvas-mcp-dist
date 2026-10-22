@@ -35,6 +35,8 @@ def build_manifest(archive_name: str) -> dict[str, object]:
     digest = hashlib.sha256(archive.read_bytes()).hexdigest()
     if digest != match.group(1):
         raise ValueError("archive does not match its version checksum file")
+    if f"{digest}  {archive_name}" not in (ROOT / "SHA256SUMS").read_text().splitlines():
+        raise ValueError("archive is missing from the aggregate SHA256SUMS")
     return {
         "schemaVersion": 1,
         "version": version,
