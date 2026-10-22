@@ -1,8 +1,8 @@
-# huihui 无限画布 MCP 0.1.4
+# huihui 无限画布 MCP
 
 [English](README.md)
 
-本仓库提供无限画布本机 Bridge 与 stdio MCP 的安装包，供获授权的画布用户使用。当前安装包版本为 0.1.4。
+本仓库提供无限画布本机 Bridge 与 stdio MCP 的安装包，供获授权的画布用户使用。当前可安装版本、压缩包和校验文件以 [latest.json](latest.json) 为准。
 
 ## 使用条件
 
@@ -14,20 +14,26 @@
 
 请先登录无限画布，复制登录后当前画布的 URL，把下方「请在此处替换画布工作区URL」替换为该 URL，再将整段发给**与画布浏览器运行在同一台电脑上的本地 Codex 或其他 Agent**：
 
-> 请阅读 https://github.com/AlexCh121/canvas-mcp-dist/blob/main/README.zh-CN.md。我已在本机打开无限画布并登录；画布 URL 为：「请在此处替换画布工作区URL」。确认 Node.js 22 或更新版本，从该仓库下载 `qorigin-canvas-mcp-0.1.4.tgz` 和 `SHA256SUMS-0.1.4` 并校验；安装压缩包，用 `codex mcp add huihui-canvas -- qorigin-canvas-mcp mcp` 注册 MCP，启动并保持 `qorigin-canvas-mcp serve` 运行，然后引导我在画布的「画布助手 → Codex」输入一次性配对码，并显式选择浏览器连接；如果你不在这台电脑上或无法保持 Bridge 运行，请说明原因，不要声称已经连接成功。
+> 请阅读 https://github.com/AlexCh121/canvas-mcp-dist/blob/main/README.zh-CN.md 和 https://github.com/AlexCh121/canvas-mcp-dist/blob/main/latest.json。我已在本机打开无限画布并登录；画布 URL 为：「请在此处替换画布工作区URL」。从仓库 `main` 的 `latest.json` 获取当前版本、`archive`、`checksumFile`、`sha256`、`cli` 和 `codexRegistration`，确认 Node.js 达到 `nodeMajorMinimum`。下载清单指定的压缩包与校验文件，核对两处 SHA256 一致后安装；若清单或文件不一致，请停止。用清单中的注册名及 CLI 注册 Codex MCP，启动并保持该 CLI 的 `serve` 模式运行，然后引导我在画布的「画布助手 → Codex」输入一次性配对码，并显式选择浏览器连接；如果你不在这台电脑上或无法保持 Bridge 运行，请说明原因，不要声称已经连接成功。
 
 ## 下载与安装
 
-从本仓库下载 [qorigin-canvas-mcp-0.1.4.tgz](qorigin-canvas-mcp-0.1.4.tgz) 和 [SHA256SUMS-0.1.4](SHA256SUMS-0.1.4)，放在同一目录。在已登录画布的同一台电脑上执行：
+从本仓库下载 [latest.json](latest.json)，并按其中的 `archive` 和 `checksumFile` 下载同仓库文件，放在同一目录。以下命令在已登录画布的同一台电脑上执行，变量由清单读取，因此新版本无需修改命令：
 
 ```bash
-shasum -a 256 -c SHA256SUMS-0.1.4
-npm install -g ./qorigin-canvas-mcp-0.1.4.tgz
-codex mcp add huihui-canvas -- qorigin-canvas-mcp mcp
-qorigin-canvas-mcp serve
+CANVAS_ARCHIVE="$(node -p "require('./latest.json').archive")"
+CANVAS_SUMS="$(node -p "require('./latest.json').checksumFile")"
+CANVAS_CLI="$(node -p "require('./latest.json').cli")"
+CANVAS_REG="$(node -p "require('./latest.json').codexRegistration")"
+node -e "const m=require('./latest.json'); if (Number(process.versions.node.split('.')[0]) < m.nodeMajorMinimum) process.exit(1)"
+shasum -a 256 -c "$CANVAS_SUMS"
+node -e "const m=require('./latest.json'); const h=require('node:crypto').createHash('sha256').update(require('node:fs').readFileSync(m.archive)).digest('hex'); if (h !== m.sha256) process.exit(1)"
+npm install -g "./$CANVAS_ARCHIVE"
+codex mcp add "$CANVAS_REG" -- "$CANVAS_CLI" mcp
+"$CANVAS_CLI" serve
 ```
 
-最后一条命令会启动只监听本机 `127.0.0.1:38621` 的 Bridge，并打印一次性配对码。**保持这个终端运行。**
+最后一条命令启动只监听本机的 Bridge，并打印一次性配对码。**保持这个终端运行。**升级已有安装时，先核对并移除同名旧注册，避免重复入口。
 
 ## 连接画布
 
@@ -35,7 +41,7 @@ qorigin-canvas-mcp serve
 2. 在 Codex 中调用 `canvas_list_connections` 查看连接，再用 `canvas_select_connection` 显式选择要操作的浏览器标签页。
 3. 写入前先调用 `canvas_prepare_operation`，并把返回的 `operationId` 原样传给写入工具。如果写入超时，先用 `canvas_get_operation_status` 查询结果，不要换一个操作 ID 盲目重试。
 
-Bridge 保持运行时，如需重新生成配对码，可在另一个终端执行 `qorigin-canvas-mcp pair`。
+Bridge 保持运行时，如需重新生成配对码，可在另一个终端使用清单中的 `cli` 执行 `pair`。
 
 本包尚未发布到 npm。使用其他获授权画布时，可用 `QORIGIN_CANVAS_ORIGINS` 指定其准确 Origin（协议、域名和端口），多个 Origin 用逗号分隔。显式设置为空值会拒绝启动。升级时如有 `qorigin-canvas` 或 `qorigin-canvas-dev` 旧注册，请先移除，避免重复入口。
 
