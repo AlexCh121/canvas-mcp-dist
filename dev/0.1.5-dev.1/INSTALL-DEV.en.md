@@ -2,6 +2,12 @@
 
 For authorized DEV canvas testing only. Built from Canvas source branch `codex/mcp-015-dev-package` at `cb4de1c8`; it needs the matching DEV Canvas Web and Canvas Service. This package is not referenced by the stable `latest.json`. The bundled README remains unchanged; use this guide for the DEV version, port, and install path.
 
+## One-sentence quickstart for a local agent
+
+Sign in to the DEV canvas, copy its actual URL, replace the placeholder below, and send the whole sentence to an agent running on the same computer as the browser:
+
+> Read https://github.com/AlexCh121/canvas-mcp-dist/blob/dev-mcp-0.1.5-dev.1/dev/0.1.5-dev.1/INSTALL-DEV.en.md; my signed-in DEV canvas URL is `PASTE_YOUR_ACTUAL_DEV_CANVAS_URL_HERE`; download and verify only the `0.1.5-dev.1` archive from that DEV test branch, follow the guide to install it separately and register `huihui-canvas-dev`, derive the Origin from my canvas URL, start and keep the local Bridge running on the isolated port `38622`, then guide me to enter its one-use pairing code, set the same port in Canvas, and explicitly select the browser connection; ask which local directory I authorize before uploading materials, and explain the limitation instead of claiming a connection if you cannot run on this computer or keep the Bridge running.
+
 ## Install on the browser computer
 
 Requires Node.js 22+ and the Codex CLI. Run in an empty directory:
