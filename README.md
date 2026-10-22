@@ -12,13 +12,15 @@ Current release: [v0.1.5 downloads and installation guides](https://github.com/A
 
 First sign in to Canvas and copy the URL of the canvas you opened. Replace `PASTE_YOUR_CANVAS_URL_HERE` below with that URL, then send the entire message to a **local Codex or other agent running on the same computer as your browser**:
 
-> Read https://github.com/AlexCh121/canvas-mcp-dist/blob/main/README.md and https://github.com/AlexCh121/canvas-mcp-dist/blob/main/latest.json. I have opened Infinite Canvas and signed in on this computer. My canvas URL is: `PASTE_YOUR_CANVAS_URL_HERE`. Read `latest.json` from the repository's `main` branch for the current version, `archive`, `checksumFile`, `sha256`, `cli`, and `codexRegistration`; check that Node.js meets `nodeMajorMinimum`. Download the named archive and checksum file from the same repository, verify both SHA256 values, and install the archive. Stop if the manifest or files disagree. Register the MCP with Codex using the manifest's registration name and CLI, keep that CLI's `serve` mode running, then guide me to enter the one-use pairing code in Canvas Assistant → Codex and explicitly select the browser connection. If you are not running on this computer or cannot keep the Bridge running, explain the limitation instead of claiming it is connected.
+> Read https://github.com/AlexCh121/canvas-mcp-dist/blob/main/README.md and https://github.com/AlexCh121/canvas-mcp-dist/blob/main/latest.json. I have opened Infinite Canvas and signed in on this computer. My canvas URL is: `PASTE_YOUR_CANVAS_URL_HERE`. Read `latest.json` from the repository's `main` branch for the current version, `archive`, `checksumFile`, `sha256`, `cli`, and `codexRegistration`; check that Node.js meets `nodeMajorMinimum`. Download the named archive and checksum file from the same repository, verify both SHA256 values, and install the archive. Stop if the manifest or files disagree. Register the MCP with Codex using the manifest's registration name and CLI. Extract the exact Origin (scheme, host, and port, without the path) from my canvas URL and pass it as `QORIGIN_CANVAS_ORIGINS` to that CLI's `serve` process; keep the Bridge running. Do not use a wildcard or bypass the Origin check. Then guide me to enter the one-use pairing code in Canvas Assistant → Codex and explicitly select the browser connection. If you are not running on this computer or cannot keep the Bridge running, explain the limitation instead of claiming it is connected.
 
 ## Install
 
 Download [latest.json](latest.json), then download the `archive` and `checksumFile` it names from this repository into the same directory. Run the following on the same computer as your signed-in canvas. The commands read the manifest, so they do not need a version edit for each release:
 
 ```bash
+CANVAS_URL='PASTE_YOUR_CANVAS_URL_HERE'
+CANVAS_ORIGIN="$(node -p 'new URL(process.argv[1]).origin' "$CANVAS_URL")"
 CANVAS_ARCHIVE="$(node -p "require('./latest.json').archive")"
 CANVAS_SUMS="$(node -p "require('./latest.json').checksumFile")"
 CANVAS_CLI="$(node -p "require('./latest.json').cli")"
@@ -28,12 +30,12 @@ shasum -a 256 -c "$CANVAS_SUMS"
 node -e "const m=require('./latest.json'); const h=require('node:crypto').createHash('sha256').update(require('node:fs').readFileSync(m.archive)).digest('hex'); if (h !== m.sha256) process.exit(1)"
 npm install -g "./$CANVAS_ARCHIVE"
 codex mcp add "$CANVAS_REG" -- "$CANVAS_CLI" mcp
-"$CANVAS_CLI" serve
+QORIGIN_CANVAS_ORIGINS="$CANVAS_ORIGIN" "$CANVAS_CLI" serve
 ```
 
 Keep the Bridge terminal open. Enter its one-use pairing code in **Canvas Assistant → Codex**. In Codex, call `canvas_list_connections`, then explicitly select the shown connection with `canvas_select_connection`. Check for and remove an existing registration under the same name before upgrading to avoid duplicates.
 
-For another authorized Canvas, set `QORIGIN_CANVAS_ORIGINS` to its exact Origin; an explicitly empty value is rejected. The browser tab, Bridge, and Codex must run on the same computer. This package is not published to npm.
+For multiple authorized Canvas domains, pass their exact Origins as a comma-separated `QORIGIN_CANVAS_ORIGINS` value when starting the Bridge. Switching to an unconfigured domain requires restarting the Bridge and reconnecting. An explicitly empty value is rejected. The browser tab, Bridge, and Codex must run on the same computer. This package is not published to npm.
 
 ## Creative workflow and limitations
 
