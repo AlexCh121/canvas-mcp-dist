@@ -1,10 +1,10 @@
-# huihui 无限画布 MCP
+# 无限画布 MCP
 
 [English](README.md)
 
 本仓库提供无限画布本机 Bridge 与 stdio MCP 的安装包，供获授权的画布用户使用。当前可安装版本、压缩包和校验文件以 [latest.json](latest.json) 为准。
 
-当前正式版本：[v0.1.5 下载与安装说明](https://github.com/AlexCh121/canvas-mcp-dist/releases/tag/v0.1.5)。画布入口：[https://lc.tatakeji.cn/](https://lc.tatakeji.cn/)。新工具需配套网页与 Canvas Service 部署后使用。
+当前正式版本：[v0.1.5 下载与安装说明](https://github.com/AlexCh121/canvas-mcp-dist/releases/tag/v0.1.5)。新工具需配套网页与 Canvas Service 部署后使用。
 
 ## 使用条件
 
@@ -14,7 +14,7 @@
 
 ## 一句话给 Agent（Quickstart）
 
-请先登录 [https://lc.tatakeji.cn/](https://lc.tatakeji.cn/)，复制登录后当前画布的 URL，把下方「请在此处替换画布工作区URL」替换为该 URL，再将整段发给**与画布浏览器运行在同一台电脑上的本地 Codex 或其他 Agent**：
+请先登录画布，复制登录后当前画布的 URL，把下方「请在此处替换画布工作区URL」替换为该 URL，再将整段发给**与画布浏览器运行在同一台电脑上的本地 Codex 或其他 Agent**：
 
 > 请阅读 https://github.com/AlexCh121/canvas-mcp-dist/blob/main/README.zh-CN.md 和 https://github.com/AlexCh121/canvas-mcp-dist/blob/main/latest.json。我已在本机打开无限画布并登录；画布 URL 为：「请在此处替换画布工作区URL」。从仓库 `main` 的 `latest.json` 获取当前版本、`archive`、`checksumFile`、`sha256`、`cli` 和 `codexRegistration`，确认 Node.js 达到 `nodeMajorMinimum`。下载清单指定的压缩包与校验文件，核对两处 SHA256 一致后安装；若清单或文件不一致，请停止。用清单中的注册名及 CLI 注册 Codex MCP，启动并保持该 CLI 的 `serve` 模式运行，然后引导我在画布的「画布助手 → Codex」输入一次性配对码，并显式选择浏览器连接；如果你不在这台电脑上或无法保持 Bridge 运行，请说明原因，不要声称已经连接成功。
 
