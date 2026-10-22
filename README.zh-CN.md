@@ -1,13 +1,8 @@
-# 雷盈画布 MCP 0.1.4（生产候选版）
+# huihui 无限画布 MCP
 
 [English](README.md)
 
-本仓库提供雷盈画布本机 Bridge 与 stdio MCP 的安装包，供获授权的画布用户使用。这里仅发布安装包，不包含画布应用源码。
-
-- 版本：`@qorigin/canvas-mcp@0.1.4`
-- 生产画布：[https://lc.tatakeji.cn/](https://lc.tatakeji.cn/)
-- 来源：画布集成分支 `hotfix.20261021.prompt-limits` 提交 `c2b45887`，安装包分支 `codex/mcp-0.1.4` 提交 `c2192f36`；后端集成分支 `hotfix.20261021.1` 提交 `4e89f8d5`
-- 状态：生产候选包，供受控验证；客户正式开放仍需对应画布和后端部署及端到端验收
+本仓库提供无限画布本机 Bridge 与 stdio MCP 的安装包，供获授权的画布用户使用。当前可安装版本、压缩包和校验文件以 [latest.json](latest.json) 为准。
 
 ## 使用条件
 
@@ -17,22 +12,28 @@
 
 ## 一句话给 Agent（Quickstart）
 
-把下面这句话发给**与画布浏览器运行在同一台电脑上的本地 Codex**：
+请先登录无限画布，复制登录后当前画布的 URL，把下方「请在此处替换画布工作区URL」替换为该 URL，再将整段发给**与画布浏览器运行在同一台电脑上的本地 Codex 或其他 Agent**：
 
-> 请阅读 https://github.com/AlexCh121/canvas-mcp-dist/blob/main/README.zh-CN.md，在本机打开生产画布 https://lc.tatakeji.cn/ 并登录。确认 Node.js 22 或更新版本，从该仓库下载 `qorigin-canvas-mcp-0.1.4.tgz` 和 `SHA256SUMS-0.1.4` 并校验；安装压缩包，用 `codex mcp add qorigin-canvas -- qorigin-canvas-mcp mcp` 注册 MCP，启动并保持 `qorigin-canvas-mcp serve` 运行，然后引导我在画布里手动输入一次性配对码并显式选择浏览器连接；如果你不在这台电脑上或无法保持 Bridge 运行，请说明原因，不要声称已经连接成功。
+> 请阅读 https://github.com/AlexCh121/canvas-mcp-dist/blob/main/README.zh-CN.md 和 https://github.com/AlexCh121/canvas-mcp-dist/blob/main/latest.json。我已在本机打开无限画布并登录；画布 URL 为：「请在此处替换画布工作区URL」。从仓库 `main` 的 `latest.json` 获取当前版本、`archive`、`checksumFile`、`sha256`、`cli` 和 `codexRegistration`，确认 Node.js 达到 `nodeMajorMinimum`。下载清单指定的压缩包与校验文件，核对两处 SHA256 一致后安装；若清单或文件不一致，请停止。用清单中的注册名及 CLI 注册 Codex MCP，启动并保持该 CLI 的 `serve` 模式运行，然后引导我在画布的「画布助手 → Codex」输入一次性配对码，并显式选择浏览器连接；如果你不在这台电脑上或无法保持 Bridge 运行，请说明原因，不要声称已经连接成功。
 
 ## 下载与安装
 
-从本仓库下载 [qorigin-canvas-mcp-0.1.4.tgz](qorigin-canvas-mcp-0.1.4.tgz) 和 [SHA256SUMS-0.1.4](SHA256SUMS-0.1.4)，放在同一目录。在已登录的[生产画布](https://lc.tatakeji.cn/)所在电脑上执行：
+从本仓库下载 [latest.json](latest.json)，并按其中的 `archive` 和 `checksumFile` 下载同仓库文件，放在同一目录。以下命令在已登录画布的同一台电脑上执行，变量由清单读取，因此新版本无需修改命令：
 
 ```bash
-shasum -a 256 -c SHA256SUMS-0.1.4
-npm install -g ./qorigin-canvas-mcp-0.1.4.tgz
-codex mcp add qorigin-canvas -- qorigin-canvas-mcp mcp
-qorigin-canvas-mcp serve
+CANVAS_ARCHIVE="$(node -p "require('./latest.json').archive")"
+CANVAS_SUMS="$(node -p "require('./latest.json').checksumFile")"
+CANVAS_CLI="$(node -p "require('./latest.json').cli")"
+CANVAS_REG="$(node -p "require('./latest.json').codexRegistration")"
+node -e "const m=require('./latest.json'); if (Number(process.versions.node.split('.')[0]) < m.nodeMajorMinimum) process.exit(1)"
+shasum -a 256 -c "$CANVAS_SUMS"
+node -e "const m=require('./latest.json'); const h=require('node:crypto').createHash('sha256').update(require('node:fs').readFileSync(m.archive)).digest('hex'); if (h !== m.sha256) process.exit(1)"
+npm install -g "./$CANVAS_ARCHIVE"
+codex mcp add "$CANVAS_REG" -- "$CANVAS_CLI" mcp
+"$CANVAS_CLI" serve
 ```
 
-最后一条命令会启动只监听本机 `127.0.0.1:38621` 的 Bridge，并打印一次性配对码。**保持这个终端运行。**
+最后一条命令启动只监听本机的 Bridge，并打印一次性配对码。**保持这个终端运行。**升级已有安装时，先核对并移除同名旧注册，避免重复入口。
 
 ## 连接画布
 
@@ -40,12 +41,12 @@ qorigin-canvas-mcp serve
 2. 在 Codex 中调用 `canvas_list_connections` 查看连接，再用 `canvas_select_connection` 显式选择要操作的浏览器标签页。
 3. 写入前先调用 `canvas_prepare_operation`，并把返回的 `operationId` 原样传给写入工具。如果写入超时，先用 `canvas_get_operation_status` 查询结果，不要换一个操作 ID 盲目重试。
 
-Bridge 保持运行时，如需重新生成配对码，可在另一个终端执行 `qorigin-canvas-mcp pair`。
+Bridge 保持运行时，如需重新生成配对码，可在另一个终端使用清单中的 `cli` 执行 `pair`。
 
-本包尚未发布到 npm。Bridge 默认仅允许 `https://lc.tatakeji.cn` 连接；访问其他获授权画布时，可用 `QORIGIN_CANVAS_ORIGINS` 覆盖为其准确 Origin（协议、域名和端口），多个 Origin 用逗号分隔。显式设置为空值会拒绝启动。从 0.1.2 升级时，建议移除旧的 `qorigin-canvas-dev` 注册，避免重复入口。
+本包尚未发布到 npm。使用其他获授权画布时，可用 `QORIGIN_CANVAS_ORIGINS` 指定其准确 Origin（协议、域名和端口），多个 Origin 用逗号分隔。显式设置为空值会拒绝启动。升级时如有 `qorigin-canvas` 或 `qorigin-canvas-dev` 旧注册，请先移除，避免重复入口。
 
-## 创作流程与发布状态
+## 创作流程与限制
 
 分页调用 `canvas_get_state`；修改长文本前用 `canvas_get_node_text` 读到 `nextOffset` 为 `null`。用 `canvas_list_media_versions` 选择准确版本，通过 `canvas_get_image_preview` 或 `canvas_get_media_info` 查看素材；媒体 URL 有效期为 5 分钟。先用 `canvas_get_generation_options` 查询能力并配置图片或视频节点，再用 `canvas_quote_generation` 报价。写入前准备操作 ID，向 `canvas_generate_image` 或 `canvas_generate_video` 原样传递报价指纹、提示词、参考版本和报价金额，并在画布中确认费用。结果不明时查询原操作 ID；素材是否完成还须调用 `canvas_get_generation_status`。旧结果可作为新节点的参考；已完成节点可再次生成并保留旧版，`canvas_select_media_version` 可选回已保存版本。素材审核工具用于供应商合规检查，不评价创作质量。
 
-0.1.4 包基于合并后的画布源码构建，本地类型检查、Bridge 恢复测试、生产 Origin 默认值与覆盖测试通过。此前 DEV 浏览器已验证参考图付费生成、金额不符拒绝、回执丢失后的操作恢复、图片合规审核、同节点重做与旧版切回；合并后的生产构建仍需完成真实改价竞态、参考视频生成、权限撤销、重复操作不重复扣费和云端 Agent 回归。视频关键帧提取及运行时停用/撤销既有配对尚未实现。已签发的媒体 URL 在 5 分钟有效期内无法即时撤销。
+本版尚不支持视频关键帧提取及运行时停用或撤销既有配对。已签发的媒体 URL 在 5 分钟有效期内无法即时撤销。完整创作流程仍需在对应画布部署中验证。
