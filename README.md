@@ -1,8 +1,8 @@
-# huihui Infinite Canvas MCP 0.1.4
+# huihui Infinite Canvas MCP
 
 [简体中文](README.zh-CN.md)
 
-This repository distributes the local Bridge and stdio MCP package for authorized Infinite Canvas users. The current package version is 0.1.4.
+This repository distributes the local Bridge and stdio MCP package for authorized Infinite Canvas users. The current installable version, archive, and checksum file are listed in [latest.json](latest.json).
 
 Requires Node.js 22 or newer, a local Codex CLI, and access to the authorized Canvas on the same computer as the Bridge.
 
@@ -10,20 +10,26 @@ Requires Node.js 22 or newer, a local Codex CLI, and access to the authorized Ca
 
 First sign in to Infinite Canvas and copy the URL of the canvas you opened. Replace `PASTE_YOUR_CANVAS_URL_HERE` below with that URL, then send the entire message to a **local Codex or other agent running on the same computer as your browser**:
 
-> Read https://github.com/AlexCh121/canvas-mcp-dist/blob/main/README.md. I have opened Infinite Canvas and signed in on this computer. My canvas URL is: `PASTE_YOUR_CANVAS_URL_HERE`. Check that Node.js 22+ is available, download `qorigin-canvas-mcp-0.1.4.tgz` and `SHA256SUMS-0.1.4` from this repository, and verify the checksum. Install the tarball, register `huihui-canvas` with `codex mcp add huihui-canvas -- qorigin-canvas-mcp mcp`, start and keep `qorigin-canvas-mcp serve` running, then guide me to enter the one-use pairing code in Canvas Assistant → Codex and explicitly select the browser connection. If you are not running on this computer or cannot keep the Bridge running, explain the limitation instead of claiming it is connected.
+> Read https://github.com/AlexCh121/canvas-mcp-dist/blob/main/README.md and https://github.com/AlexCh121/canvas-mcp-dist/blob/main/latest.json. I have opened Infinite Canvas and signed in on this computer. My canvas URL is: `PASTE_YOUR_CANVAS_URL_HERE`. Read `latest.json` from the repository's `main` branch for the current version, `archive`, `checksumFile`, `sha256`, `cli`, and `codexRegistration`; check that Node.js meets `nodeMajorMinimum`. Download the named archive and checksum file from the same repository, verify both SHA256 values, and install the archive. Stop if the manifest or files disagree. Register the MCP with Codex using the manifest's registration name and CLI, keep that CLI's `serve` mode running, then guide me to enter the one-use pairing code in Canvas Assistant → Codex and explicitly select the browser connection. If you are not running on this computer or cannot keep the Bridge running, explain the limitation instead of claiming it is connected.
 
 ## Install
 
-Download [qorigin-canvas-mcp-0.1.4.tgz](qorigin-canvas-mcp-0.1.4.tgz) and [SHA256SUMS-0.1.4](SHA256SUMS-0.1.4) from this repository. Run these commands on the same computer as your signed-in canvas:
+Download [latest.json](latest.json), then download the `archive` and `checksumFile` it names from this repository into the same directory. Run the following on the same computer as your signed-in canvas. The commands read the manifest, so they do not need a version edit for each release:
 
 ```bash
-shasum -a 256 -c SHA256SUMS-0.1.4
-npm install -g ./qorigin-canvas-mcp-0.1.4.tgz
-codex mcp add huihui-canvas -- qorigin-canvas-mcp mcp
-qorigin-canvas-mcp serve
+CANVAS_ARCHIVE="$(node -p "require('./latest.json').archive")"
+CANVAS_SUMS="$(node -p "require('./latest.json').checksumFile")"
+CANVAS_CLI="$(node -p "require('./latest.json').cli")"
+CANVAS_REG="$(node -p "require('./latest.json').codexRegistration")"
+node -e "const m=require('./latest.json'); if (Number(process.versions.node.split('.')[0]) < m.nodeMajorMinimum) process.exit(1)"
+shasum -a 256 -c "$CANVAS_SUMS"
+node -e "const m=require('./latest.json'); const h=require('node:crypto').createHash('sha256').update(require('node:fs').readFileSync(m.archive)).digest('hex'); if (h !== m.sha256) process.exit(1)"
+npm install -g "./$CANVAS_ARCHIVE"
+codex mcp add "$CANVAS_REG" -- "$CANVAS_CLI" mcp
+"$CANVAS_CLI" serve
 ```
 
-Keep the Bridge terminal open. In the logged-in Canvas, open **Canvas Assistant → Codex** and enter the one-use pairing code printed by the Bridge. In Codex, call `canvas_list_connections` and explicitly select the shown connection with `canvas_select_connection` before using tools. Remove any old `qorigin-canvas` or `qorigin-canvas-dev` registration when upgrading to avoid duplicate entries.
+Keep the Bridge terminal open. Enter its one-use pairing code in **Canvas Assistant → Codex**. In Codex, call `canvas_list_connections`, then explicitly select the shown connection with `canvas_select_connection`. Check for and remove an existing registration under the same name before upgrading to avoid duplicates.
 
 For another authorized Canvas, set `QORIGIN_CANVAS_ORIGINS` to its exact Origin; an explicitly empty value is rejected. The browser tab, Bridge, and Codex must run on the same computer. This package is not published to npm.
 
