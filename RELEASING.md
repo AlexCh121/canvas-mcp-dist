@@ -15,3 +15,7 @@
 明确获准正式发布时，先核对已发布包与校验，使用 `scripts/update-latest.py` 更新安装指针，将 `release.json` 的 `prerelease` 设为 false，再提交到 main。Actions 校验当前安装指针、下载并核对原 Release 包，随后将其转为正式版本并设为 GitHub Latest。
 
 原 tag、压缩包和校验文件保持不变；转正说明写在 Release 正文，不重打同号压缩包。正式发布状态不能替代生产服务部署或未完成场景的验收，已知限制继续保留。
+
+## 更正文档与公开说明
+
+修正文案时将 release.json 的 documentationOnly 设为 true，提交修正后的版本安装说明及 Release 正文。现有工作流先下载核对已发布压缩包和校验文件，再只更新 README.en.md、INSTALL.zh-CN.md、RELEASE-NOTES.md 和 Release 正文；保持 tag、包、校验文件、预发布状态和默认安装入口。之后发布新版本时移除 documentationOnly 或设为 false。公开说明使用用户提供的画布 URL，不列部署入口。

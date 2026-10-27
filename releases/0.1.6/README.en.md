@@ -2,9 +2,9 @@
 
 [简体中文安装说明](INSTALL.zh-CN.md)
 
-Production Canvas: https://lc.tatakeji.cn/ — sign in and open your own canvas before pairing.
+Use your authorized Canvas URL. Sign in and open your own canvas before pairing.
 
-Release preparation: 0.1.6 candidate; publication and production deployment are tracked separately. The reported intermittent disconnect remains under investigation.
+This is the published 0.1.6 prerelease; default installation remains at 0.1.5 pending the matching service/web rollout. The reported intermittent disconnect remains under investigation.
 
 Connect a local Codex client to your signed-in Infinite Canvas browser tab. The package provides a local Bridge and a stdio MCP server; it stores no cloud login token. Requires Node.js 22+ and Codex on the same computer as the browser.
 
@@ -12,17 +12,19 @@ Connect a local Codex client to your signed-in Infinite Canvas browser tab. The 
 
 First sign in to Canvas, open the canvas you want to edit, and replace the URL below with that canvas's actual URL. Then send this to your **local** agent:
 
-> Read the supplied README and the distribution README at https://github.com/AlexCh121/canvas-mcp-dist first. My signed-in canvas is `<PASTE_YOUR_CANVAS_URL>`. Install the supplied `qorigin-canvas-mcp-0.1.6.tgz` after verifying `SHA256SUMS-0.1.6`. Register `huihui-canvas` with Codex, keep the local Bridge running, and guide me through pairing in Canvas Assistant → Codex. List and explicitly select my browser connection. Ask which local material folder I want to authorize before enabling uploads. If you cannot run on this computer or keep the Bridge running, explain that limitation.
+> Read the supplied README and the distribution README at https://github.com/AlexCh121/canvas-mcp-dist first. My signed-in canvas is `<PASTE_YOUR_CANVAS_URL>`. Install the supplied `qorigin-canvas-mcp-0.1.6.tgz` after verifying `SHA256SUMS-0.1.6`. Register `huihui-canvas` with Codex, derive its exact Origin as `QORIGIN_CANVAS_ORIGINS` and keep the local Bridge running, and guide me through pairing in Canvas Assistant → Codex. List and explicitly select my browser connection. Ask which local material folder I want to authorize before enabling uploads. If you cannot run on this computer or keep the Bridge running, explain that limitation.
 
 ## Install and pair
 
 Obtain the archive and checksum from the supplied validation bundle, or from [GitHub Releases](https://github.com/AlexCh121/canvas-mcp-dist/releases) after publication, then run:
 
 ```bash
+CANVAS_URL='PASTE_YOUR_CANVAS_URL_HERE'
+CANVAS_ORIGIN="$(node -p 'new URL(process.argv[1]).origin' "$CANVAS_URL")"
 shasum -a 256 -c SHA256SUMS-0.1.6
 npm install -g ./qorigin-canvas-mcp-0.1.6.tgz
 codex mcp add huihui-canvas -- qorigin-canvas-mcp mcp
-qorigin-canvas-mcp serve
+QORIGIN_CANVAS_ORIGINS="$CANVAS_ORIGIN" qorigin-canvas-mcp serve
 ```
 
 Keep the terminal open. Enter its one-use pairing code in **Canvas Assistant → Codex**. Call `canvas_list_connections`, then `canvas_select_connection` with the connection ID shown in Canvas. To issue another pairing code, run `qorigin-canvas-mcp pair` while the Bridge is running. Remove an obsolete `qorigin-canvas-dev` registration when upgrading.
@@ -30,7 +32,7 @@ Keep the terminal open. Enter its one-use pairing code in **Canvas Assistant →
 To enable local uploads, restart the Bridge with an explicitly authorized directory (repeat for additional directories):
 
 ```bash
-qorigin-canvas-mcp serve --upload-root /absolute/path/to/materials
+QORIGIN_CANVAS_ORIGINS="$CANVAS_ORIGIN" qorigin-canvas-mcp serve --upload-root /absolute/path/to/materials
 ```
 
 Only regular files inside those directories can be read. URL inputs and paths escaping through symlinks are refused. Call `canvas_get_upload_options` before uploading. Each batch accepts at most 20 files; business and deployment limits can lower this. The initial transport budget is 64 MiB per file, 512 MiB per batch and at most four transfers; the browser holds at most 128 MiB of pending file blobs. MiB = 1,048,576 bytes. Snapshots remain readable for 24 hours; the running Bridge cleans expired files periodically and on startup. Common binary image/video formats and MP3/WAV are detected from bytes; unsupported or unrecognizable files receive per-item errors. Upload acceptance does not guarantee browser preview or model compatibility.
@@ -55,7 +57,7 @@ This version requires the matching Canvas Web and Canvas Service upload/batch AP
 
 ## Reliability and batch tools
 
-This candidate extends released 0.1.5. Its actual tools are captured in `schema/customer-tools.v0.1.6.json`; the 0.1.5 schema is retained for reference. Web and Canvas Service must declare `save_only_graph_v2` before graph tools run; missing support returns `FEATURE_UNAVAILABLE`.
+This prerelease extends 0.1.5. Its actual tools are captured in `schema/customer-tools.v0.1.6.json`; the 0.1.5 schema is retained for reference. Web and Canvas Service must declare `save_only_graph_v2` before graph tools run; missing support returns `FEATURE_UNAVAILABLE`.
 
 Connections live at page level, renew with bounded retries, and provide `canvas_get_connection_diagnostics`. Accepted uploads use a separate scope from SSE; unrelated revisions do not restart byte transfer. Explicit disconnect, revoked permissions, navigation, authorization expiry, or a closed browser still stop subsequent work.
 

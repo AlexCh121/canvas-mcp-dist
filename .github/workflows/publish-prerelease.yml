@@ -33,11 +33,12 @@ jobs:
           RELEASE_CHECKSUM: ${{ steps.assets.outputs.checksumFile }}
           RELEASE_NOTES: ${{ steps.assets.outputs.notesFile }}
           RELEASE_PRERELEASE: ${{ steps.assets.outputs.prerelease }}
+          RELEASE_DOCUMENTATION_ONLY: ${{ steps.assets.outputs.documentationOnly }}
         run: |
           set -euo pipefail
           tag="v${RELEASE_VERSION}"
           if gh release view "$tag" >/dev/null 2>&1; then
-            if [ "$RELEASE_PRERELEASE" != false ]; then
+            if [ "$RELEASE_PRERELEASE" != false ] && [ "$RELEASE_DOCUMENTATION_ONLY" != true ]; then
               echo "Release already exists; refusing to replace versioned assets."
               exit 1
             fi
@@ -47,9 +48,21 @@ jobs:
               --pattern "$RELEASE_CHECKSUM" --dir "$verify_dir"
             cmp "$verify_dir/$RELEASE_ARCHIVE" "$RELEASE_ARCHIVE"
             cmp "$verify_dir/$RELEASE_CHECKSUM" "$RELEASE_CHECKSUM"
-            gh release edit "$tag" --draft=false --prerelease=false --latest \
-              --title "huihui Infinite Canvas MCP ${tag}" --notes-file "$RELEASE_NOTES"
+            if [ "$RELEASE_DOCUMENTATION_ONLY" = true ]; then
+              # Only public text assets may change; keep tag, archive, checksums and release status.
+              gh release upload "$tag" --clobber \
+                "releases/${RELEASE_VERSION}/README.en.md" \
+                "releases/${RELEASE_VERSION}/INSTALL.zh-CN.md" "$RELEASE_NOTES"
+              gh release edit "$tag" --notes-file "$RELEASE_NOTES"
+            else
+              gh release edit "$tag" --draft=false --prerelease=false --latest \
+                --title "huihui Infinite Canvas MCP ${tag}" --notes-file "$RELEASE_NOTES"
+            fi
           else
+            if [ "$RELEASE_DOCUMENTATION_ONLY" = true ]; then
+              echo "Documentation refresh requires an existing release."
+              exit 1
+            fi
             title="huihui Infinite Canvas MCP ${tag}"
             if [ "$RELEASE_PRERELEASE" = true ]; then title="$title (prerelease)"; fi
             gh release create "$tag" --draft --prerelease="$RELEASE_PRERELEASE" \

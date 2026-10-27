@@ -1,14 +1,19 @@
 # Infinite Canvas MCP
 
-**New package: [v0.1.6 prerelease](https://github.com/AlexCh121/canvas-mcp-dist/releases/tag/v0.1.6).** Matching production Canvas Service/Web deployment is pending; the default installation pointer remains at 0.1.5. For an authorized 0.1.6 test, explicitly download its versioned archive/checksum and [guides](releases/0.1.6/README.en.md). Reported intermittent disconnects remain under investigation.
-
 [简体中文](README.zh-CN.md)
 
-This repository distributes the local Bridge and stdio MCP package for authorized Infinite Canvas users. The current installable version, archive, and checksum file are listed in [latest.json](latest.json).
+This repository distributes the local Bridge and stdio MCP package for authorized Infinite Canvas users. The default installation version, archive, and checksum file are listed in [latest.json](latest.json).
 
 Requires Node.js 22 or newer, a local Codex CLI, and access to the authorized Canvas on the same computer as the Bridge.
 
-Current release: [v0.1.5 downloads and installation guides](https://github.com/AlexCh121/canvas-mcp-dist/releases/tag/v0.1.5). The matching Canvas Web and Service must be deployed to use the new tools.
+## Choose a version
+
+| Purpose | Version and downloads | Status |
+|---|---|---|
+| Default installation | [0.1.5](https://github.com/AlexCh121/canvas-mcp-dist/releases/tag/v0.1.5), selected by [latest.json](latest.json) | Current default |
+| Preview new features | [0.1.6](https://github.com/AlexCh121/canvas-mcp-dist/releases/tag/v0.1.6) · [installation guide](releases/0.1.6/README.en.md) | Public prerelease; matching service/web rollout is pending, so it does not replace the default |
+
+The generic commands below follow the default version. Use the versioned guide to test 0.1.6. Intermittent disconnects remain under investigation. Supply the URL of your authorized, signed-in canvas; this repository does not list a Canvas deployment entry.
 
 ## One-sentence quickstart for an agent
 

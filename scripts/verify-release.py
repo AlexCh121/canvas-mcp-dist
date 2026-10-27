@@ -21,6 +21,9 @@ if release["notesFile"] != f"releases/{version}/RELEASE-NOTES.md":
     raise ValueError("invalid release notes path")
 if not isinstance(release["prerelease"], bool):
     raise ValueError("prerelease must be a boolean")
+documentation_only = release.get("documentationOnly", False)
+if not isinstance(documentation_only, bool):
+    raise ValueError("documentationOnly must be a boolean")
 if not release["prerelease"]:
     latest = json.loads((ROOT / "latest.json").read_text())
     if latest != expected:
@@ -37,4 +40,5 @@ if os.environ.get("GITHUB_OUTPUT"):
         for key in ["version", "archive", "checksumFile", "notesFile"]:
             output.write(f"{key}={release[key]}\n")
         output.write(f"prerelease={json.dumps(release['prerelease'])}\n")
+        output.write(f"documentationOnly={json.dumps(documentation_only)}\n")
 print(f"Release assets verified: {version}; prerelease={release['prerelease']}")

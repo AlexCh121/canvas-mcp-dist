@@ -1,22 +1,24 @@
 # huihui 无限画布 MCP 0.1.6
 
-生产画布：https://lc.tatakeji.cn/ 。登录后打开自己的画布，再进行配对。
+使用你已获授权的画布 URL，登录并打开自己的画布后再配对。
 
-本包为 0.1.6 待发布候选；客户偶发断连仍在定位。
+本包为已公开发布的 0.1.6 预发布版；默认安装入口仍为 0.1.5，客户偶发断连仍在定位。
 
 先在电脑浏览器登录无限画布，打开准备操作的画布。将下面的 URL 替换成**实际画布链接**，再把整段发给同一台电脑上的本机 Agent：
 
-> 请先阅读随包 README 和 https://github.com/AlexCh121/canvas-mcp-dist 的安装说明。我已登录的画布是 `<粘贴你的实际画布URL>`。请核对 Node.js 22+，下载本版本提供的 `qorigin-canvas-mcp-0.1.6.tgz` 和 `SHA256SUMS-0.1.6`，校验后安装，注册 Codex MCP 并持续运行本机 Bridge。引导我在「画布助手 → Codex」输入一次性配对码，再列出并明确选择这张画布的连接。如需上传，先问我授权哪个本机素材目录。若你不在这台电脑运行，或不能保持 Bridge 在线，请明确说明。
+> 请先阅读随包 README 和 https://github.com/AlexCh121/canvas-mcp-dist 的安装说明。我已登录的画布是 `<粘贴你的实际画布URL>`。请核对 Node.js 22+，下载本版本提供的 `qorigin-canvas-mcp-0.1.6.tgz` 和 `SHA256SUMS-0.1.6`，校验后安装，注册 Codex MCP，从该 URL 提取准确 Origin 作为 QORIGIN_CANVAS_ORIGINS，持续运行本机 Bridge。引导我在「画布助手 → Codex」输入一次性配对码，再列出并明确选择这张画布的连接。如需上传，先问我授权哪个本机素材目录。若你不在这台电脑运行，或不能保持 Bridge 在线，请明确说明。
 
 ## 安装与配对
 
 需 Node.js 22+、本机 Codex CLI，以及可登录的画布。从本次候选交付目录获取压缩包与校验文件；正式发布后可在 [GitHub Releases](https://github.com/AlexCh121/canvas-mcp-dist/releases) 下载。然后执行：
 
 ```bash
+CANVAS_URL='请在此处替换画布工作区URL'
+CANVAS_ORIGIN="$(node -p 'new URL(process.argv[1]).origin' "$CANVAS_URL")"
 shasum -a 256 -c SHA256SUMS-0.1.6
 npm install -g ./qorigin-canvas-mcp-0.1.6.tgz
 codex mcp add huihui-canvas -- qorigin-canvas-mcp mcp
-qorigin-canvas-mcp serve
+QORIGIN_CANVAS_ORIGINS="$CANVAS_ORIGIN" qorigin-canvas-mcp serve
 ```
 
 保持终端运行，在画布的「画布助手 → Codex」输入终端中的配对码。让 Codex 调用 `canvas_list_connections`，再用页面显示的连接 ID 调用 `canvas_select_connection`。需要新配对码时运行 `qorigin-canvas-mcp pair`。从早期 DEV 版本升级时移除旧的 `qorigin-canvas-dev` 注册。
@@ -49,7 +51,7 @@ qorigin-canvas-mcp serve --upload-root /绝对路径/素材目录
 
 ## 可靠性与批量保存
 
-本候选基于已发布 0.1.5，实际工具定义见 `schema/customer-tools.v0.1.6.json`；保留 0.1.5 schema 供核对。批量保存要求网页、Canvas Service 均声明 `save_only_graph_v2`，能力缺失返回 `FEATURE_UNAVAILABLE`。注册名使用 `huihui-canvas`。
+本预发布版基于 0.1.5，实际工具定义见 `schema/customer-tools.v0.1.6.json`；保留 0.1.5 schema 供核对。批量保存要求网页、Canvas Service 均声明 `save_only_graph_v2`，能力缺失返回 `FEATURE_UNAVAILABLE`。注册名使用 `huihui-canvas`。
 
 先调用 `canvas_get_mcp_capabilities`，再 validate/apply `save_only` 计划；apply 使用预备操作 ID，按原 ID 查询 `canvas_get_graph_operation` 与分页逐项回执。计划最多 200 项、2,000 条边变化、768 KiB（运行配置可收紧），每次短事务最多 10 项。更新已有节点须传配方指纹，参考素材须绑定具体版本；未知 `@[node:ID]` 明确拒绝。音频引用可保存，执行生成仍明确拒绝。
 

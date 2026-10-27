@@ -1,12 +1,17 @@
 # 无限画布 MCP
 
-**新安装包：[v0.1.6 预发布版](https://github.com/AlexCh121/canvas-mcp-dist/releases/tag/v0.1.6)。** 配套 Canvas Service/Web 生产部署待同批发布，默认安装入口暂保留 0.1.5。授权测试 0.1.6 时，请明确下载该版本的压缩包、校验文件并阅读[安装说明](releases/0.1.6/INSTALL.zh-CN.md)。客户偶发断连仍在追踪。
-
 [English](README.md)
 
-本仓库提供无限画布本机 Bridge 与 stdio MCP 的安装包，供获授权的画布用户使用。当前可安装版本、压缩包和校验文件以 [latest.json](latest.json) 为准。
+本仓库提供无限画布本机 Bridge 与 stdio MCP 的安装包，供获授权的画布用户使用。默认安装版本、压缩包和校验文件以 [latest.json](latest.json) 为准。
 
-当前正式版本：[v0.1.5 下载与安装说明](https://github.com/AlexCh121/canvas-mcp-dist/releases/tag/v0.1.5)。新工具需配套网页与 Canvas Service 部署后使用。
+## 版本选择
+
+| 用途 | 版本与下载 | 状态 |
+|---|---|---|
+| 默认安装 | [0.1.5](https://github.com/AlexCh121/canvas-mcp-dist/releases/tag/v0.1.5)，由 [latest.json](latest.json) 指定 | 当前默认版本 |
+| 提前验证新功能 | [0.1.6](https://github.com/AlexCh121/canvas-mcp-dist/releases/tag/v0.1.6) · [安装说明](releases/0.1.6/INSTALL.zh-CN.md) | 已公开预发布；配套服务和网页待同批部署，暂不替换默认版本 |
+
+下方通用安装指令跟随默认版本。验证 0.1.6 请使用该版本的安装说明；客户偶发断连仍在追踪。使用你已获授权并登录的画布 URL，仓库不提供具体画布入口。
 
 ## 使用条件
 
