@@ -2,7 +2,7 @@
   "package": "@qorigin/canvas-mcp",
   "version": "0.1.6",
   "registrationName": "huihui-canvas",
-  "status": "prerelease",
+  "status": "release",
   "productionDeployedByThisTask": false,
   "tools": 41,
   "tarballSha256": "2c373a97c6812536666b3ffd4b2dd8f605cbf875c3019e2571d12941dd664d4b",
@@ -66,5 +66,6 @@
   "productionDeploymentStatus": "Awaiting coordinated Canvas Service and Canvas Web deployment; package publication does not deploy either service.",
   "releaseUrl": "https://github.com/AlexCh121/canvas-mcp-dist/releases/tag/v0.1.6",
   "checksumFile": "SHA256SUMS-0.1.6",
-  "canvasUrl": "Supplied by the authorized user"
+  "canvasUrl": "Supplied by the authorized user",
+  "defaultInstallationVersion": "0.1.6"
 }

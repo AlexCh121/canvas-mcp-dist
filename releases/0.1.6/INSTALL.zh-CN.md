@@ -2,7 +2,7 @@
 
 使用你已获授权的画布 URL，登录并打开自己的画布后再配对。
 
-本包为已公开发布的 0.1.6 预发布版；默认安装入口仍为 0.1.5，客户偶发断连仍在定位。
+本包为 0.1.6 正式发布版，也是默认安装版本。客户偶发断连仍在定位。
 
 先在电脑浏览器登录无限画布，打开准备操作的画布。将下面的 URL 替换成**实际画布链接**，再把整段发给同一台电脑上的本机 Agent：
 
@@ -10,7 +10,7 @@
 
 ## 安装与配对
 
-需 Node.js 22+、本机 Codex CLI，以及可登录的画布。从本次候选交付目录获取压缩包与校验文件；正式发布后可在 [GitHub Releases](https://github.com/AlexCh121/canvas-mcp-dist/releases) 下载。然后执行：
+需 Node.js 22+、本机 Codex CLI，以及可登录的画布。从 [v0.1.6 Release](https://github.com/AlexCh121/canvas-mcp-dist/releases/tag/v0.1.6) 下载压缩包与校验文件。然后执行：
 
 ```bash
 CANVAS_URL='请在此处替换画布工作区URL'
@@ -26,7 +26,7 @@ QORIGIN_CANVAS_ORIGINS="$CANVAS_ORIGIN" qorigin-canvas-mcp serve
 上传前用明确授权的目录启动 Bridge；多个目录可重复传参：
 
 ```bash
-qorigin-canvas-mcp serve --upload-root /绝对路径/素材目录
+QORIGIN_CANVAS_ORIGINS="$CANVAS_ORIGIN" qorigin-canvas-mcp serve --upload-root /绝对路径/素材目录
 ```
 
 只读取授权目录中的普通文件，拒绝 URL、越界路径和跳出目录的符号链接。每批最多 20 项，先调用 `canvas_get_upload_options` 获取当前部署限额。初始传输预算为单文件 64 MiB、整批 512 MiB、最多 4 路传输，网页待传 Blob 合计不超过 128 MiB；业务或部署配置可进一步缩小。MiB 为 `1024 * 1024` 字节。Bridge 私有快照可读取 24 小时，运行中定期清理过期文件，重启时也清理。按真实文件头识别常见二进制图片、视频及 MP3/WAV，无法识别的格式逐项拒绝；上传成功不等于浏览器和生成模型均支持该格式。
@@ -51,7 +51,7 @@ qorigin-canvas-mcp serve --upload-root /绝对路径/素材目录
 
 ## 可靠性与批量保存
 
-本预发布版基于 0.1.5，实际工具定义见 `schema/customer-tools.v0.1.6.json`；保留 0.1.5 schema 供核对。批量保存要求网页、Canvas Service 均声明 `save_only_graph_v2`，能力缺失返回 `FEATURE_UNAVAILABLE`。注册名使用 `huihui-canvas`。
+本版本基于 0.1.5，实际工具定义见 `schema/customer-tools.v0.1.6.json`；保留 0.1.5 schema 供核对。批量保存要求网页、Canvas Service 均声明 `save_only_graph_v2`，能力缺失返回 `FEATURE_UNAVAILABLE`。注册名使用 `huihui-canvas`。
 
 先调用 `canvas_get_mcp_capabilities`，再 validate/apply `save_only` 计划；apply 使用预备操作 ID，按原 ID 查询 `canvas_get_graph_operation` 与分页逐项回执。计划最多 200 项、2,000 条边变化、768 KiB（运行配置可收紧），每次短事务最多 10 项。更新已有节点须传配方指纹，参考素材须绑定具体版本；未知 `@[node:ID]` 明确拒绝。音频引用可保存，执行生成仍明确拒绝。
 

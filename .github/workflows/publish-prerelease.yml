@@ -48,11 +48,12 @@ jobs:
               --pattern "$RELEASE_CHECKSUM" --dir "$verify_dir"
             cmp "$verify_dir/$RELEASE_ARCHIVE" "$RELEASE_ARCHIVE"
             cmp "$verify_dir/$RELEASE_CHECKSUM" "$RELEASE_CHECKSUM"
+            # Refresh public text for documentation fixes and stable promotions alike.
+            # The original tag, archive and checksum assets are never replaced.
+            gh release upload "$tag" --clobber \
+              "releases/${RELEASE_VERSION}/README.en.md" \
+              "releases/${RELEASE_VERSION}/INSTALL.zh-CN.md" "$RELEASE_NOTES"
             if [ "$RELEASE_DOCUMENTATION_ONLY" = true ]; then
-              # Only public text assets may change; keep tag, archive, checksums and release status.
-              gh release upload "$tag" --clobber \
-                "releases/${RELEASE_VERSION}/README.en.md" \
-                "releases/${RELEASE_VERSION}/INSTALL.zh-CN.md" "$RELEASE_NOTES"
               gh release edit "$tag" --notes-file "$RELEASE_NOTES"
             else
               gh release edit "$tag" --draft=false --prerelease=false --latest \

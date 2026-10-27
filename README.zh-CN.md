@@ -8,10 +8,10 @@
 
 | 用途 | 版本与下载 | 状态 |
 |---|---|---|
-| 默认安装 | [0.1.5](https://github.com/AlexCh121/canvas-mcp-dist/releases/tag/v0.1.5)，由 [latest.json](latest.json) 指定 | 当前默认版本 |
-| 提前验证新功能 | [0.1.6](https://github.com/AlexCh121/canvas-mcp-dist/releases/tag/v0.1.6) · [安装说明](releases/0.1.6/INSTALL.zh-CN.md) | 已公开预发布；配套服务和网页待同批部署，暂不替换默认版本 |
+| 默认安装 | [0.1.6](https://github.com/AlexCh121/canvas-mcp-dist/releases/tag/v0.1.6) · [安装说明](releases/0.1.6/INSTALL.zh-CN.md)，由 [latest.json](latest.json) 指定 | 正式发布，当前默认版本 |
+| 历史版本 | [0.1.5](https://github.com/AlexCh121/canvas-mcp-dist/releases/tag/v0.1.5) | 保留供查阅和兼容核对 |
 
-下方通用安装指令跟随默认版本。验证 0.1.6 请使用该版本的安装说明；客户偶发断连仍在追踪。使用你已获授权并登录的画布 URL，仓库不提供具体画布入口。
+下方通用安装指令默认安装 0.1.6；客户偶发断连仍在追踪。使用你已获授权并登录的画布 URL，仓库不提供具体画布入口。
 
 ## 使用条件
 

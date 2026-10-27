@@ -4,7 +4,7 @@
 
 Use your authorized Canvas URL. Sign in and open your own canvas before pairing.
 
-This is the published 0.1.6 prerelease; default installation remains at 0.1.5 pending the matching service/web rollout. The reported intermittent disconnect remains under investigation.
+This is the stable 0.1.6 release and the default installation version. The reported intermittent disconnect remains under investigation.
 
 Connect a local Codex client to your signed-in Infinite Canvas browser tab. The package provides a local Bridge and a stdio MCP server; it stores no cloud login token. Requires Node.js 22+ and Codex on the same computer as the browser.
 
@@ -16,7 +16,7 @@ First sign in to Canvas, open the canvas you want to edit, and replace the URL b
 
 ## Install and pair
 
-Obtain the archive and checksum from the supplied validation bundle, or from [GitHub Releases](https://github.com/AlexCh121/canvas-mcp-dist/releases) after publication, then run:
+Download the archive and checksum from the [v0.1.6 Release](https://github.com/AlexCh121/canvas-mcp-dist/releases/tag/v0.1.6), then run:
 
 ```bash
 CANVAS_URL='PASTE_YOUR_CANVAS_URL_HERE'
@@ -57,7 +57,7 @@ This version requires the matching Canvas Web and Canvas Service upload/batch AP
 
 ## Reliability and batch tools
 
-This prerelease extends 0.1.5. Its actual tools are captured in `schema/customer-tools.v0.1.6.json`; the 0.1.5 schema is retained for reference. Web and Canvas Service must declare `save_only_graph_v2` before graph tools run; missing support returns `FEATURE_UNAVAILABLE`.
+This release extends 0.1.5. Its actual tools are captured in `schema/customer-tools.v0.1.6.json`; the 0.1.5 schema is retained for reference. Web and Canvas Service must declare `save_only_graph_v2` before graph tools run; missing support returns `FEATURE_UNAVAILABLE`.
 
 Connections live at page level, renew with bounded retries, and provide `canvas_get_connection_diagnostics`. Accepted uploads use a separate scope from SSE; unrelated revisions do not restart byte transfer. Explicit disconnect, revoked permissions, navigation, authorization expiry, or a closed browser still stop subsequent work.
 

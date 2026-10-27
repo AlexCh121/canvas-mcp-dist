@@ -3,7 +3,7 @@
   "archive": "qorigin-canvas-mcp-0.1.6.tgz",
   "checksumFile": "SHA256SUMS-0.1.6",
   "notesFile": "releases/0.1.6/RELEASE-NOTES.md",
-  "title": "huihui Infinite Canvas MCP v0.1.6 (prerelease)",
-  "prerelease": true,
-  "documentationOnly": true
+  "title": "huihui Infinite Canvas MCP v0.1.6",
+  "prerelease": false,
+  "documentationOnly": false
 }

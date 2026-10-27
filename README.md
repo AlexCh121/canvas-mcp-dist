@@ -10,10 +10,10 @@ Requires Node.js 22 or newer, a local Codex CLI, and access to the authorized Ca
 
 | Purpose | Version and downloads | Status |
 |---|---|---|
-| Default installation | [0.1.5](https://github.com/AlexCh121/canvas-mcp-dist/releases/tag/v0.1.5), selected by [latest.json](latest.json) | Current default |
-| Preview new features | [0.1.6](https://github.com/AlexCh121/canvas-mcp-dist/releases/tag/v0.1.6) · [installation guide](releases/0.1.6/README.en.md) | Public prerelease; matching service/web rollout is pending, so it does not replace the default |
+| Default installation | [0.1.6](https://github.com/AlexCh121/canvas-mcp-dist/releases/tag/v0.1.6) · [installation guide](releases/0.1.6/README.en.md), selected by [latest.json](latest.json) | Stable release, current default |
+| Previous version | [0.1.5](https://github.com/AlexCh121/canvas-mcp-dist/releases/tag/v0.1.5) | Retained for reference and compatibility checks |
 
-The generic commands below follow the default version. Use the versioned guide to test 0.1.6. Intermittent disconnects remain under investigation. Supply the URL of your authorized, signed-in canvas; this repository does not list a Canvas deployment entry.
+The generic commands below install 0.1.6 by default. Intermittent disconnects remain under investigation. Supply the URL of your authorized, signed-in canvas; this repository does not list a Canvas deployment entry.
 
 ## One-sentence quickstart for an agent
 
