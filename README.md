@@ -1,5 +1,7 @@
 # Infinite Canvas MCP
 
+**New package: [v0.1.6 prerelease](https://github.com/AlexCh121/canvas-mcp-dist/releases/tag/v0.1.6).** Matching production Canvas Service/Web deployment is pending; the default installation pointer remains at 0.1.5. For an authorized 0.1.6 test, explicitly download its versioned archive/checksum and [guides](releases/0.1.6/README.en.md). Reported intermittent disconnects remain under investigation.
+
 [简体中文](README.zh-CN.md)
 
 This repository distributes the local Bridge and stdio MCP package for authorized Infinite Canvas users. The current installable version, archive, and checksum file are listed in [latest.json](latest.json).

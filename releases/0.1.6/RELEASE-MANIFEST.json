@@ -1,0 +1,70 @@
+{
+  "package": "@qorigin/canvas-mcp",
+  "version": "0.1.6",
+  "registrationName": "huihui-canvas",
+  "status": "prerelease",
+  "productionEntry": "https://lc.tatakeji.cn/",
+  "productionDeployedByThisTask": false,
+  "tools": 41,
+  "tarballSha256": "2c373a97c6812536666b3ffd4b2dd8f605cbf875c3019e2571d12941dd664d4b",
+  "source": {
+    "backendHotfix": "992e8941356260126519cc9975ef5764fd5276cf",
+    "canvasHotfix": "8a611fd880ba68a634412bb9625da8b95f31632a",
+    "backendBranch": "codex/hotfix-mcp-reliability",
+    "canvasBranch": "codex/hotfix-mcp-reliability"
+  },
+  "productionMigration": {
+    "from": "d00000000013",
+    "to": "d00000000014",
+    "file": "services/canvas-service/migrations/versions/d00000000014_customer_mcp_reliability_graph.sql",
+    "sha256": "fa65c146cbb2f59500fbc31edf0424294624eb29489c0114fe4f5576af950d46"
+  },
+  "validatedDevWeb": {
+    "source": "bee9d0f4",
+    "imageTag": "v0.7.4_hotfix.20261027.4-dev",
+    "digest": "sha256:9a6309a3dc415ac1c4dbfafdfb1680b1ad36964aaba80239944551b195ed92a2"
+  },
+  "validation": {
+    "webFocusedTests": 57,
+    "bridgeTests": 7,
+    "backendDedicatedPostgresTests": 42,
+    "tarballFreshSdk": {
+      "name": "huihui-canvas",
+      "version": "0.1.6",
+      "tools": 41,
+      "schemaExact": true
+    },
+    "uploads": {
+      "items": 20,
+      "metadataReady": 20,
+      "attemptsEach": 1,
+      "bridgeRestartDuringTransfer": true,
+      "sameNodesAndVersions": true
+    },
+    "graph": {
+      "items": 154,
+      "fixedReferences": 960,
+      "sameOperationCompleted": true,
+      "lostCommittedResponseIdenticalReplay": true
+    },
+    "unicodeText": {
+      "codePoints": 5400,
+      "pages": 3,
+      "hashExact": true
+    },
+    "creditSpent": 0
+  },
+  "remaining": [
+    "Intermittent customer disconnect root cause and real long-duration/system-sleep tests",
+    "Real permission revocation and supplier price-change end-to-end scenarios not certified",
+    "Original customer missing-reference checklist not fully compared"
+  ],
+  "unsupported": [
+    "audio-reference generation",
+    "guessing bindings from @display names",
+    "closed-browser or unattended remote execution"
+  ],
+  "productionDeploymentStatus": "Awaiting coordinated Canvas Service and Canvas Web deployment; package publication does not deploy either service.",
+  "releaseUrl": "https://github.com/AlexCh121/canvas-mcp-dist/releases/tag/v0.1.6",
+  "checksumFile": "SHA256SUMS-0.1.6"
+}

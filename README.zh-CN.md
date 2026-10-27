@@ -1,5 +1,7 @@
 # 无限画布 MCP
 
+**新安装包：[v0.1.6 预发布版](https://github.com/AlexCh121/canvas-mcp-dist/releases/tag/v0.1.6)。** 配套 Canvas Service/Web 生产部署待同批发布，默认安装入口暂保留 0.1.5。授权测试 0.1.6 时，请明确下载该版本的压缩包、校验文件并阅读[安装说明](releases/0.1.6/INSTALL.zh-CN.md)。客户偶发断连仍在追踪。
+
 [English](README.md)
 
 本仓库提供无限画布本机 Bridge 与 stdio MCP 的安装包，供获授权的画布用户使用。当前可安装版本、压缩包和校验文件以 [latest.json](latest.json) 为准。
