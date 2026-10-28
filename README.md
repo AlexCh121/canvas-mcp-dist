@@ -10,10 +10,10 @@ Requires Node.js 22 or newer, a local Codex CLI, and access to the authorized Ca
 
 | Purpose | Version and downloads | Status |
 |---|---|---|
-| Default installation | [0.1.6](https://github.com/AlexCh121/canvas-mcp-dist/releases/tag/v0.1.6) · [installation guide](releases/0.1.6/README.en.md), selected by [latest.json](latest.json) | Stable release, current default |
-| Previous version | [0.1.5](https://github.com/AlexCh121/canvas-mcp-dist/releases/tag/v0.1.5) | Retained for reference and compatibility checks |
+| Default installation | [0.1.7](https://github.com/AlexCh121/canvas-mcp-dist/releases/tag/v0.1.7) · [installation guide](releases/0.1.7/README.en.md), selected by [latest.json](latest.json) | Stable release, current default |
+| Previous version | [0.1.6](https://github.com/AlexCh121/canvas-mcp-dist/releases/tag/v0.1.6) | Retained for reference and compatibility checks |
 
-The generic commands below install 0.1.6 by default. Intermittent disconnects remain under investigation. Supply the URL of your authorized, signed-in canvas; this repository does not list a Canvas deployment entry.
+The generic commands below install 0.1.7 by default. Intermittent disconnects remain under investigation. Supply the URL of your authorized, signed-in canvas; this repository does not list a Canvas deployment entry.
 
 ## One-sentence quickstart for an agent
 
@@ -48,4 +48,8 @@ For multiple authorized Canvas domains, pass their exact Origins as a comma-sepa
 
 Page through `canvas_get_state` and read long text with `canvas_get_node_text` until `nextOffset` is null. Select an exact stored version with `canvas_list_media_versions`; view it with `canvas_get_image_preview` or `canvas_get_media_info`. Media URLs expire after five minutes. Use `canvas_get_generation_options`, configure an image or video node, quote with `canvas_quote_generation`, then pass the returned quote fingerprint, prompt, references and quoted amount unchanged to `canvas_generate_image` or `canvas_generate_video` after preparing an operation ID. Confirm the charge in Canvas. Query an uncertain operation with its original ID; media completion requires a separate `canvas_get_generation_status` check. Existing results can serve as references for a new node; a completed node can be generated again while keeping its older versions, and `canvas_select_media_version` can select an older stored version. Material review tools report supplier compliance, not creative quality.
 
-Independent nodes can generate concurrently; local uploads accept up to 20 files per batch after explicit folder authorization. Free Canvas business actions run automatically, while paid items still require confirmation and client tool approvals remain under the client's control. Refresh recovery requires reopening Canvas Assistant → Codex. Explicit disconnect revokes pairing. HEIC can be stored but currently fails preview and dimensions; use PNG/JPEG for visual reading. Video frame extraction and unattended execution are outside this version. Signed media URLs remain usable until expiry. See the versioned release notes for validation limits.
+Independent nodes can generate concurrently; local uploads accept up to 20 files per batch after explicit folder authorization. Free Canvas business actions run automatically, while paid items still require confirmation and client tool approvals remain under the client's control. The page reconnects automatically after refresh while pairing and permissions remain valid. Explicit disconnect revokes pairing. HEIC can be stored but currently fails preview and dimensions; use PNG/JPEG for visual reading. Video frame extraction and unattended execution are outside this version. Signed media URLs remain usable until expiry. See the versioned release notes for validation limits.
+
+## Node names in 0.1.7
+
+Read `displayName` and use `canvas_rename_node` for the visible name; `title` stays internal. Matching Web and Canvas Service support is required. Package publication does not deploy services. See the [0.1.7 release notes](releases/0.1.7/RELEASE-NOTES.md) for validation and limits.

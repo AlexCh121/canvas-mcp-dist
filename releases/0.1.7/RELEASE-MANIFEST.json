@@ -1,0 +1,46 @@
+{
+  "package": "@qorigin/canvas-mcp",
+  "version": "0.1.7",
+  "status": "release",
+  "tools": 42,
+  "registrationName": "huihui-canvas",
+  "tarballSha256": "0f553d7b50d43e503d851f426f345be54e5d5e62dcd0acdb275e85ba78a33a38",
+  "source": {
+    "canvasBranch": "dev.20261103",
+    "canvasCommit": "a99cfe80",
+    "canvasReleaseBranch": "codex/mcp-017-release",
+    "backendBranch": "dev.20261103",
+    "backendCommit": "9196f1b5",
+    "backendFeatureCommit": "2a5de473"
+  },
+  "requiresCapabilities": [
+    "node_display_name_v1"
+  ],
+  "productionDeployedByThisTask": false,
+  "validation": {
+    "bridgeTests": 8,
+    "webFocusedTests": 69,
+    "backendApiTests": 36,
+    "dedicatedPostgresReceiptTests": 11,
+    "liveDev": "text/image rename, version preservation, original operation replay, lost receipt, refresh reconnection",
+    "creditsSpent": 0,
+    "finalTarball": {
+      "server": {
+        "name": "huihui-canvas",
+        "version": "0.1.7"
+      },
+      "tools": 42,
+      "schemaExact": true,
+      "docsVersionConsistent": true,
+      "publicDocsNoDeploymentUrls": true
+    }
+  },
+  "releaseUrl": "https://github.com/AlexCh121/canvas-mcp-dist/releases/tag/v0.1.7",
+  "productionMigration": {
+    "from": "d00000000016",
+    "to": "d00000000017",
+    "purpose": "atomic ordinary MCP write receipts and unknown-outcome fencing",
+    "table": "canvas_mcp_write_receipts",
+    "productionReadOnlyChecked": true
+  }
+}

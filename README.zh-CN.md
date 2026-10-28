@@ -8,10 +8,10 @@
 
 | 用途 | 版本与下载 | 状态 |
 |---|---|---|
-| 默认安装 | [0.1.6](https://github.com/AlexCh121/canvas-mcp-dist/releases/tag/v0.1.6) · [安装说明](releases/0.1.6/INSTALL.zh-CN.md)，由 [latest.json](latest.json) 指定 | 正式发布，当前默认版本 |
-| 历史版本 | [0.1.5](https://github.com/AlexCh121/canvas-mcp-dist/releases/tag/v0.1.5) | 保留供查阅和兼容核对 |
+| 默认安装 | [0.1.7](https://github.com/AlexCh121/canvas-mcp-dist/releases/tag/v0.1.7) · [安装说明](releases/0.1.7/INSTALL.zh-CN.md)，由 [latest.json](latest.json) 指定 | 正式发布，当前默认版本 |
+| 历史版本 | [0.1.6](https://github.com/AlexCh121/canvas-mcp-dist/releases/tag/v0.1.6) | 保留供查阅和兼容核对 |
 
-下方通用安装指令默认安装 0.1.6；客户偶发断连仍在追踪。使用你已获授权并登录的画布 URL，仓库不提供具体画布入口。
+下方通用安装指令默认安装 0.1.7；客户偶发断连仍在追踪。使用你已获授权并登录的画布 URL，仓库不提供具体画布入口。
 
 ## 使用条件
 
@@ -60,4 +60,8 @@ Bridge 保持运行时，如需重新生成配对码，可在另一个终端使�
 
 分页调用 `canvas_get_state`；修改长文本前用 `canvas_get_node_text` 读到 `nextOffset` 为 `null`。用 `canvas_list_media_versions` 选择准确版本，通过 `canvas_get_image_preview` 或 `canvas_get_media_info` 查看素材；媒体 URL 有效期为 5 分钟。先用 `canvas_get_generation_options` 查询能力并配置图片或视频节点，再用 `canvas_quote_generation` 报价。写入前准备操作 ID，向 `canvas_generate_image` 或 `canvas_generate_video` 原样传递报价指纹、提示词、参考版本和报价金额，并在画布中确认费用。结果不明时查询原操作 ID；素材是否完成还须调用 `canvas_get_generation_status`。旧结果可作为新节点的参考；已完成节点可再次生成并保留旧版，`canvas_select_media_version` 可选回已保存版本。素材审核工具用于供应商合规检查，不评价创作质量。
 
-独立节点可并行生成；本机批量上传最多 20 项，须先授权素材目录。免费业务动作在画布自动执行，收费仍逐项确认，客户端工具审批由客户端控制。刷新后重新打开「画布助手 → Codex」恢复连接，主动断开会撤销配对。HEIC 可保存但目前无法预览和读取宽高，视觉读取优先用 PNG/JPEG。视频截帧和无人值守不在本版范围；签名媒体 URL 到期前仍可用。具体验收范围与限制见版本发布说明。
+独立节点可并行生成；本机批量上传最多 20 项，须先授权素材目录。免费业务动作在画布自动执行，收费仍逐项确认，客户端工具审批由客户端控制。授权和权限有效时刷新后页面自动重连，主动断开会撤销配对。HEIC 可保存但目前无法预览和读取宽高，视觉读取优先用 PNG/JPEG。视频截帧和无人值守不在本版范围；签名媒体 URL 到期前仍可用。具体验收范围与限制见版本发布说明。
+
+## 0.1.7 节点名称
+
+读取 `displayName`，用 `canvas_rename_node` 修改显示名；`title` 仍为内部标题。需配套网页与 Canvas Service；发布安装包不会部署服务。验证与限制见 [0.1.7 发布说明](releases/0.1.7/RELEASE-NOTES.md)。
