@@ -8,10 +8,10 @@
 
 | 用途 | 版本与下载 | 状态 |
 |---|---|---|
-| 默认安装 | [0.1.7](https://github.com/AlexCh121/canvas-mcp-dist/releases/tag/v0.1.7) · [安装说明](releases/0.1.7/INSTALL.zh-CN.md)，由 [latest.json](latest.json) 指定 | 正式发布，当前默认版本 |
-| 历史版本 | [0.1.6](https://github.com/AlexCh121/canvas-mcp-dist/releases/tag/v0.1.6) | 保留供查阅和兼容核对 |
+| 默认安装 | [0.1.8](https://github.com/AlexCh121/canvas-mcp-dist/releases/tag/v0.1.8) · [安装说明](releases/0.1.8/INSTALL.zh-CN.md)，由 [latest.json](latest.json) 指定 | 正式发布，当前默认版本 |
+| 历史版本 | [0.1.7](https://github.com/AlexCh121/canvas-mcp-dist/releases/tag/v0.1.7) | 保留供查阅和兼容核对 |
 
-下方通用安装指令默认安装 0.1.7；客户偶发断连仍在追踪。使用你已获授权并登录的画布 URL，仓库不提供具体画布入口。
+下方通用安装指令默认安装 0.1.8；客户偶发断连仍在追踪。使用你已获授权并登录的画布 URL，仓库不提供具体画布入口。
 
 ## 使用条件
 
@@ -65,3 +65,7 @@ Bridge 保持运行时，如需重新生成配对码，可在另一个终端使�
 ## 0.1.7 节点名称
 
 读取 `displayName`，用 `canvas_rename_node` 修改显示名；`title` 仍为内部标题。需配套网页与 Canvas Service；发布安装包不会部署服务。验证与限制见 [0.1.7 发布说明](releases/0.1.7/RELEASE-NOTES.md)。
+
+## 0.1.8 连接修复
+
+本机包区分传输、网页响应与授权，支持按原连接 ID 做离线诊断，并保留可跨 Bridge 重启查询的脱敏故障记录。网页前端稍后发布，模糊恢复拒绝时保留绑定的修复须待前端更新后生效。客户原始断流触发原因仍在定位，详见 [0.1.8 发布说明](releases/0.1.8/RELEASE-NOTES.md)。
