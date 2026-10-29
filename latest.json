@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "version": "0.1.8",
-  "archive": "qorigin-canvas-mcp-0.1.8.tgz",
-  "checksumFile": "SHA256SUMS-0.1.8",
-  "sha256": "5b8a8c48f2932cceb26c35eae2868c5b61afd194d48496daedf4773650782309",
+  "version": "0.1.9",
+  "archive": "qorigin-canvas-mcp-0.1.9.tgz",
+  "checksumFile": "SHA256SUMS-0.1.9",
+  "sha256": "8a49a86693be96bb28d4c62bc7d7c8f5867d5e97d218597594897a36df4b56fa",
   "cli": "qorigin-canvas-mcp",
   "codexRegistration": "huihui-canvas",
   "nodeMajorMinimum": 22

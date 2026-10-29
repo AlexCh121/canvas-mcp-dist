@@ -1,0 +1,34 @@
+{
+  "version": "0.1.9",
+  "status": "release",
+  "sourceCommit": "d6b9ec07",
+  "candidateSha256": "823aeb36005eeaeac0d4640a4fb126f162f1d2dfc8f9c6d154b9b59480d40943",
+  "sha256": "8a49a86693be96bb28d4c62bc7d7c8f5867d5e97d218597594897a36df4b56fa",
+  "archive": "qorigin-canvas-mcp-0.1.9.tgz",
+  "runtimeFilesUnchangedFromDevCandidate": true,
+  "packagingChanges": [
+    "README.md",
+    "INSTALL.zh-CN.md"
+  ],
+  "matchingServicesDeployment": "Coordinated Web and Canvas Service deployment scheduled separately for the same release evening; package publication does not deploy services or migrations.",
+  "checks": {
+    "previousBridgeTests": 13,
+    "realDevUpload": "passed; no generation submitted",
+    "realCustomerWorkflows": "pending"
+  },
+  "runtimeHashes": {
+    "package/dist/config.js": "00e9055a374b32dfc0767f1c5ad3512ae150bcb501ff6855761bce851ad4af10",
+    "package/dist/connections.js": "d3107ed5928c6cf003ac62afcad05224f6971a6b1140e2081820d81e45ee0d64",
+    "package/dist/index.js": "3508eb8fc52cc7dfd779390f30f0a158e0c2c45e1267793604f21b1e0af25af5",
+    "package/dist/mcp.js": "9e57b44a9a3b765fc2ea2e2db78ec621ac8ff343d25912353b8dd98e1f18da16",
+    "package/dist/server.js": "2cc3e4fd06cdec298086d3740bd14b4247e8599c00c156f9d8d1c9f1957143a4",
+    "package/dist/uploads.js": "5793cd0ebbda35fcc0c1e73cf52bf67922afaeec8cad10887d2f038dce045366",
+    "package/dist/workspaces.js": "cc03989bcff69f6ae31f6cbe8c3ac044fc467f40d59350ca28221d0c6c32efcf",
+    "package/schema/customer-tools.v0.1.5.json": "a27ff8fbda4c5462f01176dc300414fb770254451e0efe14ee8d175be5b8e929",
+    "package/schema/customer-tools.v0.1.6.json": "ec3494e5b5a98a0b93ec0dae3b645f6ba98ea4e4775524b549148903e4d71138",
+    "package/schema/customer-tools.v0.1.7.json": "b9141c7f3eba5d8088d1ffeb8d539274e511070983a10196fafaaee0ca8dfeed",
+    "package/schema/customer-tools.v0.1.8.json": "8629a62ccc4cedeb27d3df9abf9bb57d4c0246c8b42cfdea1c0098408558a40c",
+    "package/schema/customer-tools.v0.1.9.json": "ed049dc51a8dafbfc640d210d7e6d075c7e654ac0dc07ffedf71d1579406a4f9",
+    "package/package.json": "812a916dbb38383347c76e669c86ca7898b28500fcfd8553887a4c6965953096"
+  }
+}

@@ -10,10 +10,10 @@ Requires Node.js 22 or newer, a local Codex CLI, and access to the authorized Ca
 
 | Purpose | Version and downloads | Status |
 |---|---|---|
-| Default installation | [0.1.8](https://github.com/AlexCh121/canvas-mcp-dist/releases/tag/v0.1.8) · [installation guide](releases/0.1.8/README.en.md), selected by [latest.json](latest.json) | Stable release, current default |
-| Previous version | [0.1.7](https://github.com/AlexCh121/canvas-mcp-dist/releases/tag/v0.1.7) | Retained for reference and compatibility checks |
+| Default installation | [0.1.9](https://github.com/AlexCh121/canvas-mcp-dist/releases/tag/v0.1.9) · [installation guide](releases/0.1.9/README.en.md), selected by [latest.json](latest.json) | Stable release, current default |
+| Previous version | [0.1.8](https://github.com/AlexCh121/canvas-mcp-dist/releases/tag/v0.1.8) | Retained for reference and compatibility checks |
 
-The generic commands below install 0.1.8 by default. Intermittent disconnects remain under investigation. Supply the URL of your authorized, signed-in canvas; this repository does not list a Canvas deployment entry.
+The generic commands below install 0.1.9 by default. Intermittent disconnects remain under investigation. Supply the URL of your authorized, signed-in canvas; this repository does not list a Canvas deployment entry.
 
 ## One-sentence quickstart for an agent
 
@@ -57,3 +57,7 @@ Read `displayName` and use `canvas_rename_node` for the visible name; `title` st
 ## Connection fixes in 0.1.8
 
 The package distinguishes transport, browser response and authorization, supports offline diagnosis using the original connection ID, and retains bounded redacted Bridge evidence across restarts. Canvas Web will be updated separately; preserving ambiguous rejected resume bindings requires that Web update. The original disconnect trigger remains under investigation. See the [0.1.8 release notes](releases/0.1.8/RELEASE-NOTES.md).
+
+## 0.1.9 pairing reuse and upload prompts
+
+The default package is now 0.1.9. Explicit cross-canvas pairing reuse requires matching Canvas Web; per-upload names and prompts require matching Canvas Service. Those services are deployed separately as part of the same evening release. See the [0.1.9 release notes](releases/0.1.9/RELEASE-NOTES.md).
